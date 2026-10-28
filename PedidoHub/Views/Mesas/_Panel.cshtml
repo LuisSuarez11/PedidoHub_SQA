@@ -1,0 +1,89 @@
+@model MesaPanelViewModel
+@{
+    var es = new System.Globalization.CultureInfo("es-ES");
+    var pedido = Model.Pedido;
+}
+
+<div class="drawer-summary">
+    <p class="drawer-meta">@Model.Mesa.Capacidad @(Model.Mesa.Capacidad == 1 ? "persona" : "personas")</p>
+    @if (pedido is not null)
+    {
+        <span class="estado estado-abierto">Ocupada</span>
+    }
+    else
+    {
+        <span class="estado">Libre</span>
+    }
+</div>
+
+@if (pedido is not null)
+{
+    <section class="drawer-block" aria-label="Pedido de la mesa">
+        <div class="drawer-line">
+            <strong>Pedido N° @pedido.IdPedido</strong>
+            <span class="text-muted">@pedido.Empleado.Nombre · desde las @pedido.FechaHora.ToString("HH:mm")</span>
+        </div>
+        @if (pedido.Detalles.Any())
+        {
+            <ul class="drawer-items">
+                @foreach (var detalle in pedido.Detalles.OrderBy(d => d.Plato.Nombre))
+                {
+                    <li>
+                        <span>@detalle.Cantidad × @detalle.Plato.Nombre</span>
+                        <span>@detalle.Subtotal.ToString("N2")</span>
+                    </li>
+                }
+            </ul>
+            <div class="drawer-total"><span>Total</span><strong>@pedido.Total.ToString("N2")</strong></div>
+        }
+        else
+        {
+            <p class="text-muted">Todavía no tiene platos.</p>
+        }
+        <div class="drawer-actions">
+            <a class="btn btn-primary" asp-controller="Pedidos" asp-action="Details" asp-route-id="@pedido.IdPedido">Agregar platos</a>
+            @if (pedido.Detalles.Any())
+            {
+                <a class="btn btn-secondary" asp-controller="Facturas" asp-action="Create" asp-route-idPedido="@pedido.IdPedido">Generar factura</a>
+            }
+        </div>
+    </section>
+}
+else
+{
+    <section class="drawer-block" aria-label="Abrir pedido">
+        <p class="drawer-lead">La mesa está libre. Abra un pedido indicando quién la atiende.</p>
+        <form method="post" asp-controller="Pedidos" asp-action="AbrirRapido" class="drawer-form">
+            <input type="hidden" name="numMesa" value="@Model.Mesa.NumMesa" />
+            <label class="form-label" for="idEmpleado-@Model.Mesa.NumMesa">Atiende</label>
+            <select class="form-select" id="idEmpleado-@Model.Mesa.NumMesa" name="idEmpleado" required>
+                @foreach (var empleado in Model.Empleados)
+                {
+                    <option value="@empleado.Value">@empleado.Text</option>
+                }
+            </select>
+            <button type="submit" class="btn btn-primary">Abrir pedido</button>
+        </form>
+    </section>
+}
+
+<section class="drawer-block" aria-label="Reservas de la mesa">
+    <h3 class="drawer-heading">Próximas reservas</h3>
+    @if (Model.ProximasReservas.Any())
+    {
+        <ul class="drawer-items">
+            @foreach (var reserva in Model.ProximasReservas)
+            {
+                <li>
+                    <span>@reserva.Cliente.Nombre <span class="text-muted">· @reserva.CantPersonas pers.</span></span>
+                    <span class="text-muted">@reserva.FechaHora.ToString("d MMM HH:mm", es)</span>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p class="text-muted">Sin reservas próximas.</p>
+    }
+    <a class="drawer-link" asp-controller="Reservas" asp-action="Create">Nueva reserva</a>
+</section>

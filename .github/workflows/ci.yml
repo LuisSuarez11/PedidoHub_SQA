@@ -1,0 +1,74 @@
+name: CI - PedidoHub
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  unitarias-e-integracion:
+    name: Unitarias + integración + cobertura
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Compilar
+        run: dotnet build PedidoHub.sln --configuration Release
+      - name: Pruebas con cobertura
+        run: >
+          dotnet test PedidoHub.Tests --configuration Release --no-build
+          --collect:"XPlat Code Coverage" --logger "trx;LogFileName=unit-integracion.trx"
+          --results-directory TestResults
+      - name: Publicar resultados y cobertura
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: resultados-unitarias
+          path: TestResults/**
+
+  e2e:
+    name: E2E (Selenium + Cypress) contra SQL Server
+    runs-on: ubuntu-latest
+    needs: unitarias-e-integracion
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        env:
+          ACCEPT_EULA: "Y"
+          MSSQL_SA_PASSWORD: "Qa_Passw0rd!2026"
+        ports:
+          - 1433:1433
+    env:
+      ConnectionStrings__PedidoHub: "Server=localhost,1433;Database=PedidoHubDB_QA;User Id=sa;Password=Qa_Passw0rd!2026;TrustServerCertificate=True"
+      ASPNETCORE_ENVIRONMENT: Development
+      PEDIDOHUB_URL: http://localhost:5199
+      CYPRESS_baseUrl: http://localhost:5199
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Aplicar migraciones
+        run: |
+          dotnet tool install --global dotnet-ef --version 8.0.*
+          cd PedidoHub && dotnet ef database update
+      - name: Iniciar la aplicación
+        run: |
+          dotnet run --project PedidoHub --no-launch-profile --urls http://localhost:5199 &
+          for i in $(seq 1 60); do curl -sf http://localhost:5199/health && break || sleep 2; done
+      - name: Selenium (xUnit + Chrome headless)
+        run: dotnet test PedidoHub.E2E --logger "trx;LogFileName=selenium.trx" --results-directory TestResults
+      - name: Cypress
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: cypress
+      - name: Publicar resultados E2E
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: resultados-e2e
+          path: |
+            TestResults/**
+            cypress/screenshots/**

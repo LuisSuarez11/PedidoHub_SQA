@@ -1,0 +1,64 @@
+@model IEnumerable<Cliente>
+@{
+    ViewData["Title"] = "Clientes";
+
+    MenuFilaViewModel MenuDe(int id) => new(new[]
+    {
+        new MenuFilaItem("Editar", Url.Action("Edit", new { id })!),
+        new MenuFilaItem("Eliminar", Url.Action("Delete", new { id })!, true)
+    });
+}
+
+<div class="title-row">
+    <div>
+        <h1>Clientes</h1>
+        <p class="title-sub">Quienes reservan en el restaurante, con todos sus teléfonos de contacto.</p>
+    </div>
+    <a class="btn btn-primary" asp-action="Create">Nuevo cliente</a>
+</div>
+
+<div class="toolbar">
+    <input type="search" class="form-control toolbar-search" placeholder="Buscar por nombre o teléfono" aria-label="Buscar en la lista"
+           data-filtro="#tabla-clientes" data-cuenta="#cuenta-clientes" data-vacio="#vacio-clientes" data-singular="cliente" data-plural="clientes" />
+    <span class="toolbar-count" id="cuenta-clientes">@Model.Count() @(Model.Count() == 1 ? "cliente" : "clientes")</span>
+</div>
+
+<div class="table-responsive">
+<table class="table align-middle" id="tabla-clientes">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Teléfonos</th>
+            <th><span class="visually-hidden">Acciones</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cliente in Model)
+        {
+            <tr>
+                <td><a asp-action="Details" asp-route-id="@cliente.IdCliente">@cliente.Nombre</a></td>
+                <td>
+                    @if (cliente.Telefonos.Any())
+                    {
+                        @string.Join(" · ", cliente.Telefonos.Select(t => t.Numero))
+                    }
+                    else
+                    {
+                        <span class="text-muted">—</span>
+                    }
+                </td>
+                <td>
+                    <div class="cell-actions">
+                        <a class="btn btn-sm btn-secondary" asp-action="Details" asp-route-id="@cliente.IdCliente">Abrir</a>
+                        <partial name="_MenuFila" model="MenuDe(cliente.IdCliente)" />
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
+
+<p class="empty-state" id="vacio-clientes" @(Model.Any() ? "hidden" : "")>
+    No hay clientes que coincidan. <a asp-action="Create">Registrar un cliente</a>.
+</p>

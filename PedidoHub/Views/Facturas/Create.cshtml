@@ -1,0 +1,36 @@
+@model FacturaFormViewModel
+@{
+    ViewData["Title"] = "Generar factura";
+}
+
+<h1>Generar factura</h1>
+
+<div class="note">
+    <div>@Model.DescripcionPedido</div>
+    <strong>Total a facturar: @Model.Total.ToString("N2")</strong>
+</div>
+
+<form asp-action="Create" class="form-card">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="IdPedido" />
+    <input type="hidden" asp-for="DescripcionPedido" />
+    <input type="hidden" asp-for="Total" />
+    <div class="mb-3">
+        <label asp-for="NIT" class="form-label"></label>
+        <input asp-for="NIT" class="form-control" autofocus />
+        <span asp-validation-for="NIT" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="FechaEmision" class="form-label"></label>
+        <input asp-for="FechaEmision" class="form-control" />
+        <span asp-validation-for="FechaEmision" class="text-danger"></span>
+    </div>
+    <div class="form-actions">
+    <button type="submit" class="btn btn-primary">Generar factura</button>
+    <a class="btn btn-secondary" asp-controller="Pedidos" asp-action="Details" asp-route-id="@Model.IdPedido">Cancelar</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

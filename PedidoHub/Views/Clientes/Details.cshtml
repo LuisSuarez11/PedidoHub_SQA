@@ -1,0 +1,89 @@
+@model Cliente
+@{
+    ViewData["Title"] = Model.Nombre;
+
+    // El último teléfono no se puede eliminar: el DER exige al menos uno por cliente.
+    MenuFilaViewModel MenuTelefono(int id)
+    {
+        var items = new List<MenuFilaItem> { new("Editar", Url.Action("Edit", "Telefonos", new { id })!) };
+        if (Model.Telefonos.Count > 1)
+        {
+            items.Add(new("Eliminar", Url.Action("Delete", "Telefonos", new { id })!, true));
+        }
+
+        return new(items);
+    }
+}
+
+<div class="obj-head">
+    <div>
+        <h1>@Model.Nombre</h1>
+        <p class="obj-meta">@Model.Telefonos.Count @(Model.Telefonos.Count == 1 ? "teléfono" : "teléfonos") · @Model.Reservas.Count @(Model.Reservas.Count == 1 ? "reserva" : "reservas")</p>
+    </div>
+    <div class="obj-actions">
+        <a class="btn btn-secondary" asp-action="Index">Volver a clientes</a>
+        <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@Model.IdCliente">Editar</a>
+        <a class="btn btn-primary" asp-controller="Reservas" asp-action="Create" asp-route-idCliente="@Model.IdCliente">Nueva reserva</a>
+    </div>
+</div>
+
+<div class="detail-grid">
+    <section class="panel" aria-labelledby="titulo-reservas">
+        <div class="panel-head">
+            <h2 id="titulo-reservas">Reservas</h2>
+        </div>
+        @if (Model.Reservas.Any())
+        {
+            <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>Fecha y hora</th>
+                        <th>Mesa</th>
+                        <th class="text-end">Personas</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var reserva in Model.Reservas.OrderByDescending(r => r.FechaHora))
+                    {
+                        <tr>
+                            <td>@reserva.FechaHora.ToString("yyyy-MM-dd HH:mm")</td>
+                            <td>Mesa @reserva.NumMesa</td>
+                            <td class="text-end">@reserva.CantPersonas</td>
+                            <td><span class="estado estado-@reserva.Estado.ToString().ToLower()">@reserva.Estado</span></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            </div>
+        }
+        else
+        {
+            <p class="panel-empty">Este cliente todavía no tiene reservas.</p>
+        }
+    </section>
+
+    <aside class="panel" aria-labelledby="titulo-telefonos">
+        <div class="panel-head">
+            <h2 id="titulo-telefonos">Teléfonos</h2>
+            <a asp-controller="Telefonos" asp-action="Create" asp-route-idCliente="@Model.IdCliente">Agregar</a>
+        </div>
+        @if (Model.Telefonos.Any())
+        {
+            <ul class="rows">
+                @foreach (var telefono in Model.Telefonos)
+                {
+                    <li class="row-item">
+                        <span class="row-main"><strong class="mono">@telefono.Numero</strong></span>
+                        <partial name="_MenuFila" model="MenuTelefono(telefono.IdTelefono)" />
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p class="panel-empty">Sin teléfonos registrados.</p>
+        }
+    </aside>
+</div>

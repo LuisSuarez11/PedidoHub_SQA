@@ -1,0 +1,142 @@
+@using System.Text.Json
+@{
+    var controlador = ViewContext.RouteData.Values["controller"]?.ToString();
+    var accion = ViewContext.RouteData.Values["action"]?.ToString();
+    string Activo(params string[] controladores) => controladores.Contains(controlador) ? "active" : "";
+
+    // Destinos fijos de la paleta de comandos (Ctrl+K); las coincidencias de datos llegan de /Buscar.
+    var destinos = new[]
+    {
+        new { tipo = "Ir a", titulo = "Servicio", detalle = "Plano de mesas y resumen", url = Url.Action("Index", "Home") },
+        new { tipo = "Ir a", titulo = "Pedidos", detalle = "Lista de pedidos", url = Url.Action("Index", "Pedidos") },
+        new { tipo = "Ir a", titulo = "Reservas", detalle = "Lista de reservas", url = Url.Action("Index", "Reservas") },
+        new { tipo = "Ir a", titulo = "Facturas", detalle = "Facturas emitidas", url = Url.Action("Index", "Facturas") },
+        new { tipo = "Ir a", titulo = "Clientes", detalle = "Catálogo", url = Url.Action("Index", "Clientes") },
+        new { tipo = "Ir a", titulo = "Mesas", detalle = "Catálogo", url = Url.Action("Index", "Mesas") },
+        new { tipo = "Ir a", titulo = "Platos", detalle = "Catálogo", url = Url.Action("Index", "Platos") },
+        new { tipo = "Ir a", titulo = "Empleados", detalle = "Catálogo", url = Url.Action("Index", "Empleados") },
+        new { tipo = "Reporte", titulo = "Ventas por período", detalle = "Facturado, facturas y ticket promedio", url = Url.Action("Ventas", "Reportes") },
+        new { tipo = "Reporte", titulo = "Platos más vendidos", detalle = "Unidades y monto por plato", url = Url.Action("PlatosMasVendidos", "Reportes") },
+        new { tipo = "Crear", titulo = "Nuevo pedido", detalle = "Abrir un pedido", url = Url.Action("Create", "Pedidos") },
+        new { tipo = "Crear", titulo = "Nueva reserva", detalle = "Registrar una reserva", url = Url.Action("Create", "Reservas") },
+        new { tipo = "Crear", titulo = "Nuevo cliente", detalle = "Registrar un cliente", url = Url.Action("Create", "Clientes") },
+        new { tipo = "Crear", titulo = "Nuevo plato", detalle = "Agregar al menú", url = Url.Action("Create", "Platos") }
+    };
+    var configuracion = JsonSerializer.Serialize(new { buscar = Url.Action("Index", "Buscar"), destinos });
+}
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="light">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PedidoHub · @ViewData["Title"]</title>
+    <meta name="theme-color" content="#f1f1ef" />
+    <link rel="icon" type="image/svg+xml" href="~/img/favicon.svg" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="shell">
+        <aside class="sidebar offcanvas-lg offcanvas-start" tabindex="-1" id="menuLateral" aria-label="Menú principal">
+            <div class="offcanvas-body p-0">
+                <div class="sidebar-inner w-100">
+                    <a class="brand" asp-controller="Home" asp-action="Index">
+                        <img src="~/img/logo.svg" alt="" asp-append-version="true" />
+                        <span class="brand-name">Pedido<span class="brand-hub">Hub</span><span class="brand-scope">Gestión de restaurante</span></span>
+                    </a>
+
+                    <button type="button" class="side-search" data-paleta-abrir>
+                        <span>Buscar o ir a…</span>
+                        <kbd>Ctrl K</kbd>
+                    </button>
+
+                    <nav>
+                        <a class="side-link @Activo("Home")" asp-controller="Home" asp-action="Index">Servicio</a>
+                        <a class="side-link @Activo("Pedidos")" asp-controller="Pedidos" asp-action="Index">Pedidos</a>
+                        <a class="side-link @Activo("Reservas")" asp-controller="Reservas" asp-action="Index">Reservas</a>
+                        <a class="side-link @Activo("Facturas")" asp-controller="Facturas" asp-action="Index">Facturas</a>
+
+                        <div class="nav-label">Catálogo</div>
+                        <a class="side-link @Activo("Clientes", "Telefonos")" asp-controller="Clientes" asp-action="Index">Clientes</a>
+                        <a class="side-link @Activo("Mesas")" asp-controller="Mesas" asp-action="Index">Mesas</a>
+                        <a class="side-link @Activo("Platos")" asp-controller="Platos" asp-action="Index">Platos</a>
+                        <a class="side-link @Activo("Empleados")" asp-controller="Empleados" asp-action="Index">Empleados</a>
+
+                        <div class="nav-label">Reportes</div>
+                        <a class="side-link @(controlador == "Reportes" && accion == "Ventas" ? "active" : "")" asp-controller="Reportes" asp-action="Ventas">Ventas por período</a>
+                        <a class="side-link @(controlador == "Reportes" && accion == "PlatosMasVendidos" ? "active" : "")" asp-controller="Reportes" asp-action="PlatosMasVendidos">Platos más vendidos</a>
+                    </nav>
+                </div>
+            </div>
+        </aside>
+
+        <div class="sheet-wrap">
+            <div class="mobilebar d-lg-none">
+                <a class="brand" asp-controller="Home" asp-action="Index">
+                    <img src="~/img/logo.svg" alt="" asp-append-version="true" />
+                    <span class="brand-name">Pedido<span class="brand-hub">Hub</span></span>
+                </a>
+                <span class="mobilebar-actions">
+                    <button class="btn btn-secondary" type="button" data-paleta-abrir aria-label="Buscar">Buscar</button>
+                    <button class="btn btn-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral"
+                            aria-controls="menuLateral" aria-label="Mostrar menú">Menú</button>
+                </span>
+            </div>
+
+            <main role="main" class="sheet">
+                <div class="sheet-inner">
+                    @RenderBody()
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div class="toast-stack" aria-live="polite" aria-atomic="false">
+        @if (TempData["Exito"] is string exito)
+        {
+            <div class="toast-ph toast-ph--ok" role="status" data-toast>
+                <span class="toast-text">@exito</span>
+                <button type="button" class="toast-close" aria-label="Cerrar aviso" data-toast-cerrar>
+                    <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none"/></svg>
+                </button>
+            </div>
+        }
+        @if (TempData["Error"] is string error)
+        {
+            <div class="toast-ph toast-ph--error" role="alert" data-toast data-toast-fijo>
+                <span class="toast-text">@error</span>
+                <button type="button" class="toast-close" aria-label="Cerrar aviso" data-toast-cerrar>
+                    <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none"/></svg>
+                </button>
+            </div>
+        }
+    </div>
+
+    <div class="paleta" id="paleta" hidden>
+        <div class="paleta-fondo" data-paleta-cerrar></div>
+        <div class="paleta-caja" role="dialog" aria-modal="true" aria-label="Buscar o ir a">
+            <input id="paleta-entrada" class="paleta-entrada" type="text" autocomplete="off" spellcheck="false"
+                   placeholder="Buscar clientes, platos, mesas, o ir a una pantalla" aria-controls="paleta-lista" />
+            <ul id="paleta-lista" class="paleta-lista" role="listbox"></ul>
+            <div class="paleta-pie"><span><kbd>↑</kbd> <kbd>↓</kbd> moverse</span><span><kbd>Enter</kbd> abrir</span><span><kbd>Esc</kbd> cerrar</span></div>
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-end cajon" tabindex="-1" id="panelLateral" aria-labelledby="panelLateralTitulo">
+        <div class="offcanvas-header">
+            <h2 class="offcanvas-title" id="panelLateralTitulo">Mesa</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar panel"></button>
+        </div>
+        <div class="offcanvas-body" id="panelLateralCuerpo"></div>
+    </div>
+
+    <script>window.PedidoHub = @Html.Raw(configuracion);</script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

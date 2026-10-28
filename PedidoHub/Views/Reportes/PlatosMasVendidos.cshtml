@@ -1,0 +1,95 @@
+@model ReportePlatosViewModel
+@{
+    var hoy = DateTime.Today.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+    var inicioMes = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1).ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+    ViewData["Title"] = "Platos más vendidos";
+}
+
+<div class="title-row">
+    <div>
+        <h1>Platos más vendidos</h1>
+        <p class="title-sub">Unidades e ingresos por plato, según la fecha de emisión de la factura.</p>
+    </div>
+</div>
+
+<form method="get" class="row g-3 align-items-end mb-4">
+    <div class="col-auto">
+        <label asp-for="Desde" class="form-label"></label>
+        <input asp-for="Desde" type="date" class="form-control" />
+        <span asp-validation-for="Desde" class="text-danger"></span>
+    </div>
+    <div class="col-auto">
+        <label asp-for="Hasta" class="form-label"></label>
+        <input asp-for="Hasta" type="date" class="form-control" />
+        <span asp-validation-for="Hasta" class="text-danger"></span>
+    </div>
+    <div class="col-auto">
+        <label asp-for="Top" class="form-label"></label>
+        <input asp-for="Top" type="number" min="1" max="100" class="form-control" />
+        <span asp-validation-for="Top" class="text-danger"></span>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Generar reporte</button>
+        <a class="btn btn-link" asp-action="PlatosMasVendidos">Limpiar</a>
+    </div>
+    <div class="col-12 d-flex flex-wrap align-items-center gap-2">
+        <span class="text-muted">Período rápido:</span>
+        <a class="btn btn-outline-secondary btn-sm" asp-action="PlatosMasVendidos" asp-route-Desde="@hoy" asp-route-Hasta="@hoy" asp-route-Top="@Model.Top">Hoy</a>
+        <a class="btn btn-outline-secondary btn-sm" asp-action="PlatosMasVendidos" asp-route-Desde="@inicioMes" asp-route-Hasta="@hoy" asp-route-Top="@Model.Top">Este mes</a>
+    </div>
+</form>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="note note--error" role="alert">Revisa los filtros marcados y vuelve a generar el reporte.</div>
+}
+else
+{
+<ul class="summary">
+    <li><strong class="hue">@Model.TotalMonto.ToString("N2")</strong>monto de los platos mostrados</li>
+    <li><strong>@Model.TotalUnidades</strong>unidades de los platos mostrados</li>
+    <li><strong>@Model.Filas.Count</strong>@(Model.Filas.Count == 1 ? "plato mostrado" : "platos mostrados")</li>
+</ul>
+
+<div class="table-responsive">
+<table class="table align-middle">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Plato</th>
+            <th class="text-end">Precio</th>
+            <th class="text-end">Unidades vendidas</th>
+            <th class="text-end">Monto generado</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ var posicion = 1; }
+        @foreach (var fila in Model.Filas)
+        {
+            <tr>
+                <td>@(posicion++)</td>
+                <td>@fila.Plato</td>
+                <td class="text-end">@fila.Precio.ToString("N2")</td>
+                <td class="text-end">@fila.Unidades</td>
+                <td class="text-end">@fila.Monto.ToString("N2")</td>
+            </tr>
+        }
+    </tbody>
+    @if (Model.Filas.Any())
+    {
+        <tfoot>
+            <tr>
+                <th colspan="3" class="text-end">Totales de los platos mostrados</th>
+                <th class="text-end">@Model.TotalUnidades</th>
+                <th class="text-end">@Model.TotalMonto.ToString("N2")</th>
+            </tr>
+        </tfoot>
+    }
+</table>
+</div>
+
+@if (!Model.Filas.Any())
+{
+    <p class="text-muted">No hay ventas para los filtros indicados.</p>
+}
+}

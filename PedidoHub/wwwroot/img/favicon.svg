@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none">
+  <!-- Ícono de pestaña: fondo propio para verse en pestañas claras y oscuras -->
+  <rect width="32" height="32" rx="8" fill="#131416"/>
+  <g stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="16" cy="7" r="1.8" fill="#f1f1ef"/>
+    <path d="M6.5 23.5a9.5 9.5 0 0 1 19 0" stroke="#f1f1ef" stroke-width="2.6"/>
+    <path d="M4.5 26.5h23" stroke="#f1f1ef" stroke-width="2.6"/>
+    <path d="M10.5 21.5l4-4 3 2.2 4.5-5.4" stroke="#55b5cb" stroke-width="2.2"/>
+  </g>
+  <circle cx="24.2" cy="10.4" r="3" fill="#55b5cb"/>
+</svg>

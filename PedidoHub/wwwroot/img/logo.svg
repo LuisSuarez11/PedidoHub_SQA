@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none" role="img" aria-label="PedidoHub">
+  <!-- Cloche de restaurante con una línea de datos que sale de la cúpula -->
+  <g stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="24" cy="13.4" r="2.7" fill="#131416"/>
+    <path d="M8 36a16 16 0 0 1 32 0" stroke="#131416" stroke-width="3.2"/>
+    <path d="M4 40.5h20" stroke="#131416" stroke-width="3.2"/>
+    <path d="M24 40.5h20" stroke="#1b6c80" stroke-width="3.2"/>
+    <path d="M15 32.5l6-6 5 3.5 8-9.5 6-4.5" stroke="#1b6c80" stroke-width="2.4"/>
+  </g>
+  <circle cx="15" cy="32.5" r="2.4" fill="#131416"/>
+  <circle cx="21" cy="26.5" r="2.4" fill="#131416"/>
+  <circle cx="26" cy="30" r="2.4" fill="#1b6c80"/>
+  <circle cx="34" cy="20.5" r="2.4" fill="#1b6c80"/>
+  <circle cx="41" cy="15.5" r="4" fill="#1b6c80"/>
+</svg>

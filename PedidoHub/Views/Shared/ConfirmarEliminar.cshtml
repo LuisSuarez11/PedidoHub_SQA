@@ -1,0 +1,18 @@
+@model ConfirmarEliminarViewModel
+@{
+    ViewData["Title"] = Model.Titulo;
+}
+
+<h1>@Model.Titulo</h1>
+
+<div class="form-card confirm-card">
+    <p class="confirm-text">@Model.Descripcion</p>
+    <p class="text-muted">Esta acción no se puede deshacer.</p>
+
+    <form method="post" asp-action="Delete" asp-route-id="@Model.Id">
+        <div class="form-actions">
+            <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+            <a class="btn btn-secondary" href="@Model.UrlVolver">Cancelar</a>
+        </div>
+    </form>
+</div>

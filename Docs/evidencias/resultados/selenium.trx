@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="7f2f1348-1c4e-450f-aa75-c1ed1b3c21ad" name="luiss@ZEWPHY 2026-10-28 14:35:56" runUser="ZEWPHY\luiss" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-28T14:35:56.2365826-04:00" queuing="2026-10-28T14:35:56.2365832-04:00" start="2026-10-28T14:35:52.8592956-04:00" finish="2026-10-28T14:36:19.2396654-04:00" />
+  <TestSettings name="default" id="3e88885f-b7b8-473e-8b64-789fbf81c821">
+    <Deployment runDeploymentRoot="luiss_ZEWPHY_2026-10-28_14_35_56" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="f06e26b8-751f-4f83-872f-865fd62528d5" testId="63508388-6e27-f3ee-d338-9a321d6634b9" testName="PedidoHub.E2E.FlujosDeUsuarioTests.E2E_07_Dada_una_fecha_pasada_Cuando_se_crea_una_reserva_Entonces_se_rechaza" computerName="ZEWPHY" duration="00:00:03.1168795" startTime="2026-10-28T14:36:17.3388288-04:00" endTime="2026-10-28T14:36:17.3388292-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f06e26b8-751f-4f83-872f-865fd62528d5" />
+    <UnitTestResult executionId="60feaa49-3ad3-48f7-a96e-89cda9398ba1" testId="efd31d44-3cfc-cc09-b0e5-15c4156fd8f0" testName="PedidoHub.E2E.FlujosDeUsuarioTests.E2E_02_Dada_la_paleta_Cuando_se_busca_un_plato_Entonces_aparece_en_los_resultados" computerName="ZEWPHY" duration="00:00:02.5726831" startTime="2026-10-28T14:36:05.9184333-04:00" endTime="2026-10-28T14:36:05.9184338-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="60feaa49-3ad3-48f7-a96e-89cda9398ba1" />
+    <UnitTestResult executionId="7ffe7cd4-2182-4683-a073-a543cb6745a1" testId="0c8a2cb9-e4c3-2cb3-3ce3-240767a39348" testName="PedidoHub.E2E.FlujosDeUsuarioTests.E2E_11_Dada_una_pantalla_movil_Cuando_se_abre_el_inicio_Entonces_el_menu_es_accesible_por_boton" computerName="ZEWPHY" duration="00:00:02.0326679" startTime="2026-10-28T14:36:01.3663255-04:00" endTime="2026-10-28T14:36:01.3663258-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7ffe7cd4-2182-4683-a073-a543cb6745a1" />
+    <UnitTestResult executionId="91cd2450-46af-4d84-96a6-e14114ae78b9" testId="83099b9a-5772-0317-263e-ce53d0349d41" testName="PedidoHub.E2E.FlujosDeUsuarioTests.E2E_04_Dado_un_cliente_sin_telefono_Cuando_se_guarda_Entonces_se_muestra_el_error_de_validacion" computerName="ZEWPHY" duration="00:00:01.8861729" startTime="2026-10-28T14:35:57.0256083-04:00" endTime="2026-10-28T14:35:57.0256086-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="91cd2450-46af-4d84-96a6-e14114ae78b9" />
+    <UnitTestResult executionId="438d7c04-06b2-4144-969c-b088154822ae" testId="91af2ac8-09ee-acc8-9cc7-44d2b5b38715" testName="PedidoHub.E2E.FlujosDeUsuarioTests.E2E_06_Dada_una_mesa_de_4_Cuando_se_reservan_5_personas_Entonces_se_rechaza_por_capacidad" computerName="ZEWPHY" duration="00:00:01.9785751" startTime="2026-10-28T14:36:03.3451776-04:00" endTime="2026-10-28T14:36:03.3451779-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="438d7c04-06b2-4144-969c-b088154822ae" />
+    <UnitTestResult executionId="7c58682e-7771-4aaa-9c78-9fda16fa5f4f" testId="09823622-3918-b2f3-8488-22d795884d43" testName="PedidoHub.E2E.FlujosDeUsuarioTests.E2E_03_Dado_un_cliente_valido_Cuando_se_registra_Entonces_se_muestra_el_aviso_de_exito" computerName="ZEWPHY" duration="00:00:04.0860258" startTime="2026-10-28T14:36:14.2221482-04:00" endTime="2026-10-28T14:36:14.2221487-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7c58682e-7771-4aaa-9c78-9fda16fa5f4f" />
+    <UnitTestResult executionId="7420c916-ba34-46d7-b8cc-03483acd3d61" testId="7e21f620-461b-94a5-11c9-198a72f49b88" testName="PedidoHub.E2E.FlujosDeUsuarioTests.E2E_08_Dado_el_reporte_de_ventas_Cuando_se_filtra_por_fechas_invertidas_Entonces_informa_el_error" computerName="ZEWPHY" duration="00:00:01.8059940" startTime="2026-10-28T14:35:55.1402547-04:00" endTime="2026-10-28T14:35:55.1402754-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7420c916-ba34-46d7-b8cc-03483acd3d61" />
+    <UnitTestResult executionId="670ffa0c-f2f6-45c1-9d6f-2a87281db627" testId="53c30683-f63e-832a-84ee-0d51225866cc" testName="PedidoHub.E2E.FlujosDeUsuarioTests.E2E_05_Dado_un_plato_nuevo_Cuando_se_crea_Entonces_aparece_en_el_menu_con_su_precio" computerName="ZEWPHY" duration="00:00:01.8469737" startTime="2026-10-28T14:36:19.1859940-04:00" endTime="2026-10-28T14:36:19.1859945-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="670ffa0c-f2f6-45c1-9d6f-2a87281db627" />
+    <UnitTestResult executionId="3d4c2563-247f-4f9b-82da-8fbeebb9d607" testId="6c7c546d-638d-77cb-040e-3319ee811c22" testName="PedidoHub.E2E.FlujosDeUsuarioTests.E2E_10_Dada_una_ruta_inexistente_Cuando_se_visita_Entonces_no_se_expone_informacion_tecnica" computerName="ZEWPHY" duration="00:00:02.1269222" startTime="2026-10-28T14:36:08.0461709-04:00" endTime="2026-10-28T14:36:08.0461713-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3d4c2563-247f-4f9b-82da-8fbeebb9d607" />
+    <UnitTestResult executionId="267d60df-8ae9-4911-bc46-4ae886621450" testId="cb5d0feb-808e-0ba4-bdb5-f168f3ce9022" testName="PedidoHub.E2E.FlujosDeUsuarioTests.E2E_01_Dado_el_inicio_Cuando_se_abre_Entonces_muestra_el_plano_con_las_mesas" computerName="ZEWPHY" duration="00:00:02.3076997" startTime="2026-10-28T14:35:59.3335927-04:00" endTime="2026-10-28T14:35:59.3335931-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="267d60df-8ae9-4911-bc46-4ae886621450" />
+    <UnitTestResult executionId="ec61f9d7-7b16-4af0-8f31-fe0b05f01391" testId="5c7b443d-3785-af7b-c640-3124a788da9f" testName="PedidoHub.E2E.FlujosDeUsuarioTests.E2E_09_Dado_el_reporte_de_platos_Cuando_se_abre_Entonces_lista_los_platos_vendidos" computerName="ZEWPHY" duration="00:00:02.0898555" startTime="2026-10-28T14:36:10.1357187-04:00" endTime="2026-10-28T14:36:10.1357192-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ec61f9d7-7b16-4af0-8f31-fe0b05f01391" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="PedidoHub.E2E.FlujosDeUsuarioTests.E2E_09_Dado_el_reporte_de_platos_Cuando_se_abre_Entonces_lista_los_platos_vendidos" storage="c:\users\luiss\isi\6to semestre\sqa\segundo momento\pedidohub\pedidohub.e2e\bin\debug\net8.0\pedidohub.e2e.dll" id="5c7b443d-3785-af7b-c640-3124a788da9f">
+      <Execution id="ec61f9d7-7b16-4af0-8f31-fe0b05f01391" />
+      <TestMethod codeBase="C:\Users\luiss\ISI\6to Semestre\SQA\Segundo Momento\PedidoHub\PedidoHub.E2E\bin\Debug\net8.0\PedidoHub.E2E.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="PedidoHub.E2E.FlujosDeUsuarioTests" name="E2E_09_Dado_el_reporte_de_platos_Cuando_se_abre_Entonces_lista_los_platos_vendidos" />
+    </UnitTest>
+    <UnitTest name="PedidoHub.E2E.FlujosDeUsuarioTests.E2E_04_Dado_un_cliente_sin_telefono_Cuando_se_guarda_Entonces_se_muestra_el_error_de_validacion" storage="c:\users\luiss\isi\6to semestre\sqa\segundo momento\pedidohub\pedidohub.e2e\bin\debug\net8.0\pedidohub.e2e.dll" id="83099b9a-5772-0317-263e-ce53d0349d41">
+      <Execution id="91cd2450-46af-4d84-96a6-e14114ae78b9" />
+      <TestMethod codeBase="C:\Users\luiss\ISI\6to Semestre\SQA\Segundo Momento\PedidoHub\PedidoHub.E2E\bin\Debug\net8.0\PedidoHub.E2E.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="PedidoHub.E2E.FlujosDeUsuarioTests" name="E2E_04_Dado_un_cliente_sin_telefono_Cuando_se_guarda_Entonces_se_muestra_el_error_de_validacion" />
+    </UnitTest>
+    <UnitTest name="PedidoHub.E2E.FlujosDeUsuarioTests.E2E_08_Dado_el_reporte_de_ventas_Cuando_se_filtra_por_fechas_invertidas_Entonces_informa_el_error" storage="c:\users\luiss\isi\6to semestre\sqa\segundo momento\pedidohub\pedidohub.e2e\bin\debug\net8.0\pedidohub.e2e.dll" id="7e21f620-461b-94a5-11c9-198a72f49b88">
+      <Execution id="7420c916-ba34-46d7-b8cc-03483acd3d61" />
+      <TestMethod codeBase="C:\Users\luiss\ISI\6to Semestre\SQA\Segundo Momento\PedidoHub\PedidoHub.E2E\bin\Debug\net8.0\PedidoHub.E2E.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="PedidoHub.E2E.FlujosDeUsuarioTests" name="E2E_08_Dado_el_reporte_de_ventas_Cuando_se_filtra_por_fechas_invertidas_Entonces_informa_el_error" />
+    </UnitTest>
+    <UnitTest name="PedidoHub.E2E.FlujosDeUsuarioTests.E2E_01_Dado_el_inicio_Cuando_se_abre_Entonces_muestra_el_plano_con_las_mesas" storage="c:\users\luiss\isi\6to semestre\sqa\segundo momento\pedidohub\pedidohub.e2e\bin\debug\net8.0\pedidohub.e2e.dll" id="cb5d0feb-808e-0ba4-bdb5-f168f3ce9022">
+      <Execution id="267d60df-8ae9-4911-bc46-4ae886621450" />
+      <TestMethod codeBase="C:\Users\luiss\ISI\6to Semestre\SQA\Segundo Momento\PedidoHub\PedidoHub.E2E\bin\Debug\net8.0\PedidoHub.E2E.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="PedidoHub.E2E.FlujosDeUsuarioTests" name="E2E_01_Dado_el_inicio_Cuando_se_abre_Entonces_muestra_el_plano_con_las_mesas" />
+    </UnitTest>
+    <UnitTest name="PedidoHub.E2E.FlujosDeUsuarioTests.E2E_10_Dada_una_ruta_inexistente_Cuando_se_visita_Entonces_no_se_expone_informacion_tecnica" storage="c:\users\luiss\isi\6to semestre\sqa\segundo momento\pedidohub\pedidohub.e2e\bin\debug\net8.0\pedidohub.e2e.dll" id="6c7c546d-638d-77cb-040e-3319ee811c22">
+      <Execution id="3d4c2563-247f-4f9b-82da-8fbeebb9d607" />
+      <TestMethod codeBase="C:\Users\luiss\ISI\6to Semestre\SQA\Segundo Momento\PedidoHub\PedidoHub.E2E\bin\Debug\net8.0\PedidoHub.E2E.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="PedidoHub.E2E.FlujosDeUsuarioTests" name="E2E_10_Dada_una_ruta_inexistente_Cuando_se_visita_Entonces_no_se_expone_informacion_tecnica" />
+    </UnitTest>
+    <UnitTest name="PedidoHub.E2E.FlujosDeUsuarioTests.E2E_02_Dada_la_paleta_Cuando_se_busca_un_plato_Entonces_aparece_en_los_resultados" storage="c:\users\luiss\isi\6to semestre\sqa\segundo momento\pedidohub\pedidohub.e2e\bin\debug\net8.0\pedidohub.e2e.dll" id="efd31d44-3cfc-cc09-b0e5-15c4156fd8f0">
+      <Execution id="60feaa49-3ad3-48f7-a96e-89cda9398ba1" />
+      <TestMethod codeBase="C:\Users\luiss\ISI\6to Semestre\SQA\Segundo Momento\PedidoHub\PedidoHub.E2E\bin\Debug\net8.0\PedidoHub.E2E.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="PedidoHub.E2E.FlujosDeUsuarioTests" name="E2E_02_Dada_la_paleta_Cuando_se_busca_un_plato_Entonces_aparece_en_los_resultados" />
+    </UnitTest>
+    <UnitTest name="PedidoHub.E2E.FlujosDeUsuarioTests.E2E_03_Dado_un_cliente_valido_Cuando_se_registra_Entonces_se_muestra_el_aviso_de_exito" storage="c:\users\luiss\isi\6to semestre\sqa\segundo momento\pedidohub\pedidohub.e2e\bin\debug\net8.0\pedidohub.e2e.dll" id="09823622-3918-b2f3-8488-22d795884d43">
+      <Execution id="7c58682e-7771-4aaa-9c78-9fda16fa5f4f" />
+      <TestMethod codeBase="C:\Users\luiss\ISI\6to Semestre\SQA\Segundo Momento\PedidoHub\PedidoHub.E2E\bin\Debug\net8.0\PedidoHub.E2E.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="PedidoHub.E2E.FlujosDeUsuarioTests" name="E2E_03_Dado_un_cliente_valido_Cuando_se_registra_Entonces_se_muestra_el_aviso_de_exito" />
+    </UnitTest>
+    <UnitTest name="PedidoHub.E2E.FlujosDeUsuarioTests.E2E_11_Dada_una_pantalla_movil_Cuando_se_abre_el_inicio_Entonces_el_menu_es_accesible_por_boton" storage="c:\users\luiss\isi\6to semestre\sqa\segundo momento\pedidohub\pedidohub.e2e\bin\debug\net8.0\pedidohub.e2e.dll" id="0c8a2cb9-e4c3-2cb3-3ce3-240767a39348">
+      <Execution id="7ffe7cd4-2182-4683-a073-a543cb6745a1" />
+      <TestMethod codeBase="C:\Users\luiss\ISI\6to Semestre\SQA\Segundo Momento\PedidoHub\PedidoHub.E2E\bin\Debug\net8.0\PedidoHub.E2E.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="PedidoHub.E2E.FlujosDeUsuarioTests" name="E2E_11_Dada_una_pantalla_movil_Cuando_se_abre_el_inicio_Entonces_el_menu_es_accesible_por_boton" />
+    </UnitTest>
+    <UnitTest name="PedidoHub.E2E.FlujosDeUsuarioTests.E2E_06_Dada_una_mesa_de_4_Cuando_se_reservan_5_personas_Entonces_se_rechaza_por_capacidad" storage="c:\users\luiss\isi\6to semestre\sqa\segundo momento\pedidohub\pedidohub.e2e\bin\debug\net8.0\pedidohub.e2e.dll" id="91af2ac8-09ee-acc8-9cc7-44d2b5b38715">
+      <Execution id="438d7c04-06b2-4144-969c-b088154822ae" />
+      <TestMethod codeBase="C:\Users\luiss\ISI\6to Semestre\SQA\Segundo Momento\PedidoHub\PedidoHub.E2E\bin\Debug\net8.0\PedidoHub.E2E.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="PedidoHub.E2E.FlujosDeUsuarioTests" name="E2E_06_Dada_una_mesa_de_4_Cuando_se_reservan_5_personas_Entonces_se_rechaza_por_capacidad" />
+    </UnitTest>
+    <UnitTest name="PedidoHub.E2E.FlujosDeUsuarioTests.E2E_05_Dado_un_plato_nuevo_Cuando_se_crea_Entonces_aparece_en_el_menu_con_su_precio" storage="c:\users\luiss\isi\6to semestre\sqa\segundo momento\pedidohub\pedidohub.e2e\bin\debug\net8.0\pedidohub.e2e.dll" id="53c30683-f63e-832a-84ee-0d51225866cc">
+      <Execution id="670ffa0c-f2f6-45c1-9d6f-2a87281db627" />
+      <TestMethod codeBase="C:\Users\luiss\ISI\6to Semestre\SQA\Segundo Momento\PedidoHub\PedidoHub.E2E\bin\Debug\net8.0\PedidoHub.E2E.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="PedidoHub.E2E.FlujosDeUsuarioTests" name="E2E_05_Dado_un_plato_nuevo_Cuando_se_crea_Entonces_aparece_en_el_menu_con_su_precio" />
+    </UnitTest>
+    <UnitTest name="PedidoHub.E2E.FlujosDeUsuarioTests.E2E_07_Dada_una_fecha_pasada_Cuando_se_crea_una_reserva_Entonces_se_rechaza" storage="c:\users\luiss\isi\6to semestre\sqa\segundo momento\pedidohub\pedidohub.e2e\bin\debug\net8.0\pedidohub.e2e.dll" id="63508388-6e27-f3ee-d338-9a321d6634b9">
+      <Execution id="f06e26b8-751f-4f83-872f-865fd62528d5" />
+      <TestMethod codeBase="C:\Users\luiss\ISI\6to Semestre\SQA\Segundo Momento\PedidoHub\PedidoHub.E2E\bin\Debug\net8.0\PedidoHub.E2E.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="PedidoHub.E2E.FlujosDeUsuarioTests" name="E2E_07_Dada_una_fecha_pasada_Cuando_se_crea_una_reserva_Entonces_se_rechaza" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="63508388-6e27-f3ee-d338-9a321d6634b9" executionId="f06e26b8-751f-4f83-872f-865fd62528d5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="efd31d44-3cfc-cc09-b0e5-15c4156fd8f0" executionId="60feaa49-3ad3-48f7-a96e-89cda9398ba1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0c8a2cb9-e4c3-2cb3-3ce3-240767a39348" executionId="7ffe7cd4-2182-4683-a073-a543cb6745a1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="83099b9a-5772-0317-263e-ce53d0349d41" executionId="91cd2450-46af-4d84-96a6-e14114ae78b9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="91af2ac8-09ee-acc8-9cc7-44d2b5b38715" executionId="438d7c04-06b2-4144-969c-b088154822ae" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="09823622-3918-b2f3-8488-22d795884d43" executionId="7c58682e-7771-4aaa-9c78-9fda16fa5f4f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7e21f620-461b-94a5-11c9-198a72f49b88" executionId="7420c916-ba34-46d7-b8cc-03483acd3d61" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="53c30683-f63e-832a-84ee-0d51225866cc" executionId="670ffa0c-f2f6-45c1-9d6f-2a87281db627" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6c7c546d-638d-77cb-040e-3319ee811c22" executionId="3d4c2563-247f-4f9b-82da-8fbeebb9d607" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cb5d0feb-808e-0ba4-bdb5-f168f3ce9022" executionId="267d60df-8ae9-4911-bc46-4ae886621450" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5c7b443d-3785-af7b-c640-3124a788da9f" executionId="ec61f9d7-7b16-4af0-8f31-fe0b05f01391" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Resultados sin formato de lista" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Todos los resultados cargados" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="11" executed="11" passed="11" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.5.3.1+6b60a9e56a (64-bit .NET 8.0.30)&#xD;
+[xUnit.net 00:00:00.05]   Discovering: PedidoHub.E2E&#xD;
+[xUnit.net 00:00:00.08]   Discovered:  PedidoHub.E2E&#xD;
+[xUnit.net 00:00:00.08]   Starting:    PedidoHub.E2E&#xD;
+Starting ChromeDriver 156.0.8078.73 (2f9a11097447f226133bc1a31c787291a5eeab98-refs/branch-heads/8078@{#1612}) on port 60484&#xD;
+Only local connections are allowed.&#xD;
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.&#xD;
+ChromeDriver was started successfully on port 60484.&#xD;
+Starting ChromeDriver 156.0.8078.73 (2f9a11097447f226133bc1a31c787291a5eeab98-refs/branch-heads/8078@{#1612}) on port 65249&#xD;
+Only local connections are allowed.&#xD;
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.&#xD;
+ChromeDriver was started successfully on port 65249.&#xD;
+Starting ChromeDriver 156.0.8078.73 (2f9a11097447f226133bc1a31c787291a5eeab98-refs/branch-heads/8078@{#1612}) on port 49674&#xD;
+Only local connections are allowed.&#xD;
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.&#xD;
+ChromeDriver was started successfully on port 49674.&#xD;
+Starting ChromeDriver 156.0.8078.73 (2f9a11097447f226133bc1a31c787291a5eeab98-refs/branch-heads/8078@{#1612}) on port 51026&#xD;
+Only local connections are allowed.&#xD;
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.&#xD;
+ChromeDriver was started successfully on port 51026.&#xD;
+Starting ChromeDriver 156.0.8078.73 (2f9a11097447f226133bc1a31c787291a5eeab98-refs/branch-heads/8078@{#1612}) on port 64375&#xD;
+Only local connections are allowed.&#xD;
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.&#xD;
+ChromeDriver was started successfully on port 64375.&#xD;
+Starting ChromeDriver 156.0.8078.73 (2f9a11097447f226133bc1a31c787291a5eeab98-refs/branch-heads/8078@{#1612}) on port 53174&#xD;
+Only local connections are allowed.&#xD;
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.&#xD;
+ChromeDriver was started successfully on port 53174.&#xD;
+Starting ChromeDriver 156.0.8078.73 (2f9a11097447f226133bc1a31c787291a5eeab98-refs/branch-heads/8078@{#1612}) on port 52338&#xD;
+Only local connections are allowed.&#xD;
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.&#xD;
+ChromeDriver was started successfully on port 52338.&#xD;
+Starting ChromeDriver 156.0.8078.73 (2f9a11097447f226133bc1a31c787291a5eeab98-refs/branch-heads/8078@{#1612}) on port 51266&#xD;
+Only local connections are allowed.&#xD;
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.&#xD;
+ChromeDriver was started successfully on port 51266.&#xD;
+Starting ChromeDriver 156.0.8078.73 (2f9a11097447f226133bc1a31c787291a5eeab98-refs/branch-heads/8078@{#1612}) on port 65025&#xD;
+Only local connections are allowed.&#xD;
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.&#xD;
+ChromeDriver was started successfully on port 65025.&#xD;
+Starting ChromeDriver 156.0.8078.73 (2f9a11097447f226133bc1a31c787291a5eeab98-refs/branch-heads/8078@{#1612}) on port 56861&#xD;
+Only local connections are allowed.&#xD;
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.&#xD;
+ChromeDriver was started successfully on port 56861.&#xD;
+Starting ChromeDriver 156.0.8078.73 (2f9a11097447f226133bc1a31c787291a5eeab98-refs/branch-heads/8078@{#1612}) on port 54324&#xD;
+Only local connections are allowed.&#xD;
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.&#xD;
+ChromeDriver was started successfully on port 54324.&#xD;
+[xUnit.net 00:00:25.98]   Finished:    PedidoHub.E2E&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

@@ -1,0 +1,66 @@
+@model IEnumerable<Factura>
+@{
+    ViewData["Title"] = "Facturas";
+    var desde = ViewData["Desde"] as DateTime?;
+    var hasta = ViewData["Hasta"] as DateTime?;
+}
+
+<div class="title-row">
+    <div>
+        <h1>Facturas</h1>
+        <p class="title-sub">Cada factura nace de un pedido. Para emitir una nueva, abra el pedido y use "Generar factura".</p>
+    </div>
+    <a class="btn btn-primary" asp-controller="Pedidos" asp-action="Index">Ir a pedidos</a>
+</div>
+
+<div class="toolbar">
+    <input type="search" class="form-control toolbar-search" placeholder="Buscar en la lista" aria-label="Buscar en la lista"
+           data-filtro="#tabla-facturas" data-cuenta="#cuenta-facturas" data-vacio="#vacio-facturas" data-singular="factura" data-plural="facturas" />
+    <form method="get" class="toolbar-dates">
+        <input type="date" name="desde" class="form-control" value="@desde?.ToString("yyyy-MM-dd")" aria-label="Desde" />
+        <input type="date" name="hasta" class="form-control" value="@hasta?.ToString("yyyy-MM-dd")" aria-label="Hasta" />
+        <button type="submit" class="btn btn-secondary">Aplicar</button>
+        @if (desde is not null || hasta is not null)
+        {
+            <a class="btn btn-link" asp-action="Index">Quitar fechas</a>
+        }
+    </form>
+    <span class="toolbar-count" id="cuenta-facturas">@Model.Count() @(Model.Count() == 1 ? "factura" : "facturas")</span>
+</div>
+
+<div class="table-responsive">
+<table class="table align-middle" id="tabla-facturas">
+    <thead>
+        <tr>
+            <th>Factura</th>
+            <th>Emisión</th>
+            <th>NIT</th>
+            <th>Pedido</th>
+            <th>Mesa</th>
+            <th class="text-end">Total</th>
+            <th><span class="visually-hidden">Acciones</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var factura in Model)
+        {
+            <tr>
+                <td class="mono"><a asp-action="Details" asp-route-id="@factura.NumFact">N° @factura.NumFact</a></td>
+                <td>@factura.FechaEmision.ToString("yyyy-MM-dd HH:mm")</td>
+                <td class="mono">@factura.NIT</td>
+                <td class="mono"><a asp-controller="Pedidos" asp-action="Details" asp-route-id="@factura.IdPedido">N° @factura.IdPedido</a></td>
+                <td>Mesa @factura.Pedido.NumMesa</td>
+                <td class="text-end">@factura.Pedido.Total.ToString("N2")</td>
+                <td>
+                    <div class="cell-actions">
+                        <a class="btn btn-sm btn-secondary" asp-action="Details" asp-route-id="@factura.NumFact">Abrir</a>
+                        <partial name="_MenuFila" model="@(new MenuFilaViewModel(new[] { new MenuFilaItem("Anular factura", Url.Action("Delete", new { id = factura.NumFact })!, true) }))" />
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
+
+<p class="empty-state" id="vacio-facturas" @(Model.Any() ? "hidden" : "")>No hay facturas con estos filtros.</p>

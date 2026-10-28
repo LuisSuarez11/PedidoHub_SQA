@@ -1,0 +1,54 @@
+@model IEnumerable<Empleado>
+@{
+    ViewData["Title"] = "Empleados";
+
+    MenuFilaViewModel MenuDe(int id) => new(new[]
+    {
+        new MenuFilaItem("Editar", Url.Action("Edit", new { id })!),
+        new MenuFilaItem("Eliminar", Url.Action("Delete", new { id })!, true)
+    });
+}
+
+<div class="title-row">
+    <div>
+        <h1>Empleados</h1>
+        <p class="title-sub">El personal que atiende los pedidos del restaurante.</p>
+    </div>
+    <a class="btn btn-primary" asp-action="Create">Nuevo empleado</a>
+</div>
+
+<div class="toolbar">
+    <input type="search" class="form-control toolbar-search" placeholder="Buscar por nombre o cargo" aria-label="Buscar en la lista"
+           data-filtro="#tabla-empleados" data-cuenta="#cuenta-empleados" data-vacio="#vacio-empleados" data-singular="empleado" data-plural="empleados" />
+    <span class="toolbar-count" id="cuenta-empleados">@Model.Count() @(Model.Count() == 1 ? "empleado" : "empleados")</span>
+</div>
+
+<div class="table-responsive">
+<table class="table align-middle" id="tabla-empleados">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Cargo</th>
+            <th><span class="visually-hidden">Acciones</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var empleado in Model)
+        {
+            <tr>
+                <td><a asp-action="Edit" asp-route-id="@empleado.IdEmpleado">@empleado.Nombre</a></td>
+                <td>@empleado.Cargo</td>
+                <td>
+                    <div class="cell-actions">
+                        <partial name="_MenuFila" model="MenuDe(empleado.IdEmpleado)" />
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
+
+<p class="empty-state" id="vacio-empleados" @(Model.Any() ? "hidden" : "")>
+    No hay empleados que coincidan. <a asp-action="Create">Registrar un empleado</a>.
+</p>

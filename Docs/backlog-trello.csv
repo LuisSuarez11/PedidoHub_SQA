@@ -1,0 +1,23 @@
+Card Name,Description,List,Labels,Prioridad,Tipo
+"HU-01 Plano de mesas","Como mesero quiero ver el plano de mesas para saber cuáles están libres. Aceptación: se muestran las 5 mesas con su estado. Pruebas: NavegacionTests, E2E-01",Hecho,"P2",Alta,Historia
+"HU-02 Abrir pedido en mesa libre","No se permite abrir otro pedido en mesa con pedido sin facturar. Pruebas: ReglasDeNegocioTests (AbrirRapido, Create)",Hecho,"P1",Alta,Historia
+"HU-03 Agregar platos al pedido","Si el plato existe se suma la cantidad; solo pedidos abiertos/servidos. Pruebas: ReglasDeNegocioTests, CatalogosYOperacionesTests",Hecho,"P1",Alta,Historia
+"HU-04 Facturar pedido","NIT 5-20 dígitos; sin doble factura; fecha de emisión >= fecha del pedido. Pruebas: ReglasDeNegocioTests",Hecho,"P1",Alta,Historia
+"HU-05 Anular factura","El pedido vuelve a Servido. Prueba: Dada_una_factura_Cuando_se_anula",Hecho,"P1",Media,Historia
+"HU-06 Reservar mesas","Personas <= capacidad; sin superposición < 2 h; sin fechas pasadas. Pruebas: ReglasDeNegocioTests, E2E-06/07, Cypress",Hecho,"P2",Alta,Historia
+"HU-07 Clientes y teléfonos","Todo cliente tiene >= 1 teléfono; no se borra el último. Pruebas: CatalogosYOperacionesTests",Hecho,"P2",Media,Historia
+"HU-08 Gestión de platos","Nombre único; precio 0.01-10000; no eliminar si está en pedidos",Hecho,"P2",Media,Historia
+"HU-09 Reporte de ventas","Filtros por fecha y empleado; total y ticket promedio. Pruebas: ReporteServiceTests",Hecho,"P1",Alta,Historia
+"HU-10 Platos más vendidos","Solo pedidos facturados; orden por unidades y nombre. Pruebas: ReporteServiceTests",Hecho,"P3",Media,Historia
+"HU-11 Endpoint /health","Responde Healthy si la BD está disponible. Prueba: Health_Reporta...",Hecho,"P3",Media,Historia
+"HU-12 Seguridad por defecto","Antiforgery + cabeceras de seguridad. Pruebas: NavegacionTests, Cypress",Hecho,"P2",Alta,Historia
+"DEF-01 Reserva en fecha pasada aceptada","Severidad Mayor. Corregido con TDD en ReservasController.Create",Hecho,"Defecto",Alta,Defecto
+"DEF-02 Dos pedidos sin facturar en la misma mesa","Severidad Mayor. Corregido en PedidosController (Create/Edit)",Hecho,"Defecto",Alta,Defecto
+"DEF-03 Factura con fecha anterior al pedido","Severidad Mayor (integridad contable). Corregido en FacturasController.Create",Hecho,"Defecto",Alta,Defecto
+"DEF-04 Sin endpoint de salud","Severidad Menor (operabilidad). Agregado /health",Hecho,"Defecto",Media,Defecto
+"DEF-05 Sin cabeceras de seguridad","Severidad Menor (seguridad). Middleware en Program.cs",Hecho,"Defecto",Media,Defecto
+"TD-01 Autenticación y roles","Deuda técnica: cualquiera puede operar el sistema. Incluir pruebas de autorización",Backlog,"Deuda técnica",Alta,Deuda
+"TD-02 Paginación en listados","Pedidos, reservas y facturas crecen sin límite. Agregar prueba de rendimiento",Backlog,"Deuda técnica",Media,Deuda
+"TD-03 Fuentes locales (sin Google Fonts)","Dependencia externa en _Layout",Backlog,"Deuda técnica",Baja,Deuda
+"TD-04 Subir cobertura de TelefonosController (51%)","Agregar pruebas de edición y rutas de error",Backlog,"Deuda técnica",Media,Deuda
+"TD-05 Análisis estático Roslyn en CI","Agregar analizadores y fallar el pipeline con advertencias nuevas",Backlog,"Deuda técnica",Baja,Deuda

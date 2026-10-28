@@ -1,0 +1,50 @@
+@model IEnumerable<Mesa>
+@{
+    ViewData["Title"] = "Mesas";
+
+    MenuFilaViewModel MenuDe(int id) => new(new[]
+    {
+        new MenuFilaItem("Editar", Url.Action("Edit", new { id })!),
+        new MenuFilaItem("Eliminar", Url.Action("Delete", new { id })!, true)
+    });
+}
+
+<div class="title-row">
+    <div>
+        <h1>Mesas</h1>
+        <p class="title-sub">Las mesas del salón y cuántas personas caben en cada una.</p>
+    </div>
+    <a class="btn btn-primary" asp-action="Create">Nueva mesa</a>
+</div>
+
+<div class="table-responsive">
+<table class="table align-middle">
+    <thead>
+        <tr>
+            <th>Mesa</th>
+            <th class="text-end">Capacidad</th>
+            <th><span class="visually-hidden">Acciones</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var mesa in Model)
+        {
+            <tr>
+                <td><a asp-action="Edit" asp-route-id="@mesa.NumMesa">Mesa @mesa.NumMesa</a></td>
+                <td class="text-end">@mesa.Capacidad @(mesa.Capacidad == 1 ? "persona" : "personas")</td>
+                <td>
+                    <div class="cell-actions">
+                        <a class="btn btn-sm btn-secondary" asp-controller="Pedidos" asp-action="Create" asp-route-numMesa="@mesa.NumMesa">Abrir pedido</a>
+                        <partial name="_MenuFila" model="MenuDe(mesa.NumMesa)" />
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
+
+@if (!Model.Any())
+{
+    <p class="empty-state">Todavía no hay mesas. <a asp-action="Create">Registrar la primera</a>.</p>
+}

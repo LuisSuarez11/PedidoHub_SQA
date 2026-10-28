@@ -1,0 +1,19 @@
+@model TelefonoCliente
+@{
+    ViewData["Title"] = "Agregar teléfono";
+}
+
+<h1>Agregar teléfono</h1>
+
+<form asp-action="Create" class="form-card">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <partial name="_Form" model="Model" view-data="ViewData" />
+    <div class="form-actions">
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a class="btn btn-secondary" asp-controller="Clientes" asp-action="Details" asp-route-id="@Model.IdCliente">Cancelar</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

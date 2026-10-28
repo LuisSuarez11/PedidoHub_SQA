@@ -1,0 +1,28 @@
+@model PedidoFormViewModel
+<div class="form-fields">
+
+<div class="mb-3">
+    <label asp-for="NumMesa" class="form-label"></label>
+    <select asp-for="NumMesa" asp-items="Model.Mesas" class="form-select">
+        <option value="0">-- Seleccione una mesa --</option>
+    </select>
+    <span asp-validation-for="NumMesa" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="IdEmpleado" class="form-label"></label>
+    <select asp-for="IdEmpleado" asp-items="Model.Empleados" class="form-select">
+        <option value="0">-- Seleccione un empleado --</option>
+    </select>
+    <span asp-validation-for="IdEmpleado" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="FechaHora" class="form-label"></label>
+    <input asp-for="FechaHora" class="form-control" />
+    <span asp-validation-for="FechaHora" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="Estado" class="form-label"></label>
+    <select asp-for="Estado" asp-items="Html.GetEnumSelectList<EstadoPedido>()" class="form-select"></select>
+    <span asp-validation-for="Estado" class="text-danger"></span>
+</div>
+</div>

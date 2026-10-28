@@ -1,0 +1,87 @@
+@model IEnumerable<Reserva>
+@{
+    ViewData["Title"] = "Reservas";
+    var estadoFiltro = ViewData["Estado"] as EstadoReserva?;
+    var conteos = (Dictionary<EstadoReserva, int>)ViewData["Conteos"]!;
+    var desde = ViewData["Desde"] as DateTime?;
+    var hasta = ViewData["Hasta"] as DateTime?;
+    var desdeTexto = desde?.ToString("yyyy-MM-dd");
+    var hastaTexto = hasta?.ToString("yyyy-MM-dd");
+
+    MenuFilaViewModel MenuDe(int id) => new(new[]
+    {
+        new MenuFilaItem("Editar", Url.Action("Edit", new { id })!),
+        new MenuFilaItem("Eliminar", Url.Action("Delete", new { id })!, true)
+    });
+}
+
+<div class="title-row">
+    <div>
+        <h1>Reservas</h1>
+        <p class="title-sub">Una mesa no puede tener dos reservas activas con menos de 2 horas de diferencia.</p>
+    </div>
+    <a class="btn btn-primary" asp-action="Create">Nueva reserva</a>
+</div>
+
+<nav class="tabs" aria-label="Estado de la reserva">
+    <a class="tab @(estadoFiltro is null ? "active" : "")" asp-action="Index" asp-route-desde="@desdeTexto" asp-route-hasta="@hastaTexto">Todas <span class="tab-n">@conteos.Values.Sum()</span></a>
+    @foreach (var estado in Enum.GetValues<EstadoReserva>())
+    {
+        <a class="tab @(estadoFiltro == estado ? "active" : "")" asp-action="Index" asp-route-estado="@estado" asp-route-desde="@desdeTexto" asp-route-hasta="@hastaTexto">@estado <span class="tab-n">@conteos.GetValueOrDefault(estado)</span></a>
+    }
+</nav>
+
+<div class="toolbar">
+    <input type="search" class="form-control toolbar-search" placeholder="Buscar en la lista" aria-label="Buscar en la lista"
+           data-filtro="#tabla-reservas" data-cuenta="#cuenta-reservas" data-vacio="#vacio-reservas" data-singular="reserva" data-plural="reservas" />
+    <form method="get" class="toolbar-dates">
+        @if (estadoFiltro is not null)
+        {
+            <input type="hidden" name="estado" value="@estadoFiltro" />
+        }
+        <input type="date" name="desde" class="form-control" value="@desdeTexto" aria-label="Desde" />
+        <input type="date" name="hasta" class="form-control" value="@hastaTexto" aria-label="Hasta" />
+        <button type="submit" class="btn btn-secondary">Aplicar</button>
+        @if (desde is not null || hasta is not null)
+        {
+            <a class="btn btn-link" asp-action="Index" asp-route-estado="@estadoFiltro">Quitar fechas</a>
+        }
+    </form>
+    <span class="toolbar-count" id="cuenta-reservas">@Model.Count() @(Model.Count() == 1 ? "reserva" : "reservas")</span>
+</div>
+
+<div class="table-responsive">
+<table class="table align-middle" id="tabla-reservas">
+    <thead>
+        <tr>
+            <th>Fecha y hora</th>
+            <th>Cliente</th>
+            <th>Mesa</th>
+            <th class="text-end">Personas</th>
+            <th>Estado</th>
+            <th><span class="visually-hidden">Acciones</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var reserva in Model)
+        {
+            <tr>
+                <td>@reserva.FechaHora.ToString("yyyy-MM-dd HH:mm")</td>
+                <td><a asp-controller="Clientes" asp-action="Details" asp-route-id="@reserva.IdCliente">@reserva.Cliente.Nombre</a></td>
+                <td>Mesa @reserva.Mesa.NumMesa</td>
+                <td class="text-end">@reserva.CantPersonas</td>
+                <td><span class="estado estado-@reserva.Estado.ToString().ToLower()">@reserva.Estado</span></td>
+                <td>
+                    <div class="cell-actions">
+                        <partial name="_MenuFila" model="MenuDe(reserva.IdReserva)" />
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
+
+<p class="empty-state" id="vacio-reservas" @(Model.Any() ? "hidden" : "")>
+    No hay reservas con estos filtros. <a asp-action="Create">Registrar una reserva</a>.
+</p>

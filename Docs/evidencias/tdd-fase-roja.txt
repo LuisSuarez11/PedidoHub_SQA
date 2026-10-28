@@ -1,0 +1,24 @@
+﻿FASE ROJA (TDD) - 2026-10-28 14:23
+Pruebas escritas ANTES de implementar las 5 mejoras (reservas pasadas, mesa ocupada, fecha de factura, /health, cabeceras).
+
+Serie de pruebas para C:\Users\luiss\ISI\6to Semestre\SQA\Segundo Momento\PedidoHub\PedidoHub.Tests\bin\Debug\net8.0\PedidoHub.Tests.dll (.NETCoreApp,Version=v8.0)
+1 archivos de prueba en total coincidieron con el patrón especificado.
+dotnet : [xUnit.net 00:00:01.47]     PedidoHub.Tests.Integration.ReglasDeNegocioTests.Dada_una_mesa_con_pedido_sin_fact
+urar_Cuando_se_crea_otro_pedido_en_ella_Entonces_se_rechaza [FAIL]
+En línea: 1 Carácter: 439
++ ... -Null; $o = dotnet test PedidoHub.Tests --nologo --no-build -v q 2>&1 ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([xUnit.net 00:0..._rechaza [FAIL]:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[xUnit.net 00:00:02.49]     PedidoHub.Tests.Integration.NavegacionTests.RespuestasHtml_IncluyenCabecerasDeSeguridad 
+[FAIL]
+[xUnit.net 00:00:02.76]     
+PedidoHub.Tests.Integration.NavegacionTests.Health_ReportaQueLaAplicacionYLaBaseDeDatosEstanVivas [FAIL]
+[xUnit.net 00:00:02.77]     PedidoHub.Tests.Integration.ReglasDeNegocioTests.Dada_una_fecha_pasada_Cuando_se_registra_u
+na_reserva_nueva_Entonces_se_rechaza [FAIL]
+[xUnit.net 00:00:03.17]     PedidoHub.Tests.Integration.ReglasDeNegocioTests.Dada_una_fecha_de_emision_anterior_al_pedi
+do_Cuando_se_factura_Entonces_se_rechaza [FAIL]
+
+Con error! - Con error:     5, Superado:    91, Omitido:     0, Total:    96, Duración: 3 s - PedidoHub.Tests.dll (net8.0)
+

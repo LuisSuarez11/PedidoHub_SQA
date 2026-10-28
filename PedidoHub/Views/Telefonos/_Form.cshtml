@@ -1,0 +1,9 @@
+@model TelefonoCliente
+
+<input type="hidden" asp-for="IdCliente" />
+<p class="text-muted">Cliente: <strong>@ViewData["NombreCliente"]</strong></p>
+<div class="mb-3">
+    <label asp-for="Numero" class="form-label"></label>
+    <input asp-for="Numero" class="form-control" autofocus />
+    <span asp-validation-for="Numero" class="text-danger"></span>
+</div>

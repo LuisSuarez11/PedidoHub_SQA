@@ -1,0 +1,33 @@
+@model ReservaFormViewModel
+<div class="form-fields">
+
+<div class="mb-3">
+    <label asp-for="IdCliente" class="form-label"></label>
+    <select asp-for="IdCliente" asp-items="Model.Clientes" class="form-select">
+        <option value="0">-- Seleccione un cliente --</option>
+    </select>
+    <span asp-validation-for="IdCliente" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="NumMesa" class="form-label"></label>
+    <select asp-for="NumMesa" asp-items="Model.Mesas" class="form-select">
+        <option value="0">-- Seleccione una mesa --</option>
+    </select>
+    <span asp-validation-for="NumMesa" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="FechaHora" class="form-label"></label>
+    <input asp-for="FechaHora" class="form-control" />
+    <span asp-validation-for="FechaHora" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="CantPersonas" class="form-label"></label>
+    <input asp-for="CantPersonas" class="form-control" min="1" />
+    <span asp-validation-for="CantPersonas" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="Estado" class="form-label"></label>
+    <select asp-for="Estado" asp-items="Html.GetEnumSelectList<EstadoReserva>()" class="form-select"></select>
+    <span asp-validation-for="Estado" class="text-danger"></span>
+</div>
+</div>

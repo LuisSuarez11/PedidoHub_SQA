@@ -1,0 +1,125 @@
+@model PedidoDetalleViewModel
+@{
+    var pedido = Model.Pedido;
+    ViewData["Title"] = $"Pedido {pedido.IdPedido}";
+    var facturable = pedido.Factura is null && pedido.Detalles.Any() && pedido.Estado != EstadoPedido.Cancelado;
+}
+
+<div class="obj-head">
+    <div>
+        <div class="obj-title">
+            <h1>Pedido N° @pedido.IdPedido</h1>
+            <span class="estado estado-@pedido.Estado.ToString().ToLower()">@pedido.Estado</span>
+        </div>
+        <p class="obj-meta">Mesa @pedido.Mesa.NumMesa · @pedido.Empleado.Nombre · @pedido.FechaHora.ToString("yyyy-MM-dd HH:mm")</p>
+    </div>
+    <div class="obj-actions">
+        <a class="btn btn-secondary" asp-action="Index">Volver a pedidos</a>
+        @if (pedido.Factura is null)
+        {
+            <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@pedido.IdPedido">Editar</a>
+        }
+        @if (facturable)
+        {
+            <a class="btn btn-primary" asp-controller="Facturas" asp-action="Create" asp-route-idPedido="@pedido.IdPedido">Generar factura</a>
+        }
+        @if (pedido.Factura is not null)
+        {
+            <a class="btn btn-primary" asp-controller="Facturas" asp-action="Details" asp-route-id="@pedido.Factura.NumFact">Ver factura N° @pedido.Factura.NumFact</a>
+        }
+    </div>
+</div>
+
+<div class="detail-grid">
+    <section class="panel" aria-labelledby="titulo-platos">
+        <div class="panel-head">
+            <h2 id="titulo-platos">Platos <span class="panel-count">@pedido.Detalles.Count @(pedido.Detalles.Count == 1 ? "plato" : "platos")</span></h2>
+        </div>
+
+        @if (pedido.Detalles.Any())
+        {
+            <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>Plato</th>
+                        <th class="text-end">Precio</th>
+                        <th class="text-end">Cantidad</th>
+                        <th class="text-end">Subtotal</th>
+                        <th><span class="visually-hidden">Acciones</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var detalle in pedido.Detalles.OrderBy(d => d.Plato.Nombre))
+                    {
+                        <tr>
+                            <td>@detalle.Plato.Nombre</td>
+                            <td class="text-end">@detalle.Plato.Precio.ToString("N2")</td>
+                            <td class="text-end">@detalle.Cantidad</td>
+                            <td class="text-end">@detalle.Subtotal.ToString("N2")</td>
+                            <td>
+                                @if (Model.PuedeModificarse)
+                                {
+                                    <form asp-action="QuitarPlato" method="post" class="cell-actions">
+                                        <input type="hidden" name="idPedido" value="@pedido.IdPedido" />
+                                        <input type="hidden" name="codPlato" value="@detalle.CodPlato" />
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">Quitar</button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            </div>
+        }
+        else
+        {
+            <p class="panel-empty">Todavía no se agregaron platos a este pedido.</p>
+        }
+
+        <div class="total-line">
+            <span>Total</span>
+            <strong>@pedido.Total.ToString("N2")</strong>
+        </div>
+
+        @if (Model.PuedeModificarse)
+        {
+            <form asp-action="AgregarPlato" method="post" class="add-line">
+                <input type="hidden" asp-for="NuevoPlato.IdPedido" />
+                <div>
+                    <select asp-for="NuevoPlato.CodPlato" asp-items="Model.NuevoPlato.Platos" class="form-select" aria-label="Plato">
+                        <option value="0">Seleccione un plato</option>
+                    </select>
+                    <span asp-validation-for="NuevoPlato.CodPlato" class="text-danger"></span>
+                </div>
+                <div>
+                    <input asp-for="NuevoPlato.Cantidad" class="form-control" min="1" aria-label="Cantidad" />
+                    <span asp-validation-for="NuevoPlato.Cantidad" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-secondary">Agregar plato</button>
+            </form>
+        }
+        else
+        {
+            <p class="panel-empty">Los platos solo pueden modificarse en pedidos abiertos o servidos.</p>
+        }
+    </section>
+
+    <aside class="panel" aria-labelledby="titulo-resumen">
+        <div class="panel-head">
+            <h2 id="titulo-resumen">Resumen</h2>
+        </div>
+        <dl class="kv">
+            <div><dt>Mesa</dt><dd>Mesa @pedido.Mesa.NumMesa · @pedido.Mesa.Capacidad pers.</dd></div>
+            <div><dt>Atiende</dt><dd>@pedido.Empleado.Nombre</dd></div>
+            <div><dt>Cargo</dt><dd>@pedido.Empleado.Cargo</dd></div>
+            <div><dt>Abierto</dt><dd>@pedido.FechaHora.ToString("yyyy-MM-dd HH:mm")</dd></div>
+            <div><dt>Factura</dt><dd>@(pedido.Factura is null ? "—" : $"N° {pedido.Factura.NumFact}")</dd></div>
+        </dl>
+    </aside>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

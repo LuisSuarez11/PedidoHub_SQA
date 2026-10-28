@@ -1,0 +1,68 @@
+@model Factura
+@{
+    ViewData["Title"] = $"Factura {Model.NumFact}";
+    var pedido = Model.Pedido;
+}
+
+<div class="obj-head">
+    <div>
+        <div class="obj-title">
+            <h1>Factura N° @Model.NumFact</h1>
+            <span class="estado estado-facturado">Emitida</span>
+        </div>
+        <p class="obj-meta">NIT @Model.NIT · @Model.FechaEmision.ToString("yyyy-MM-dd HH:mm")</p>
+    </div>
+    <div class="obj-actions">
+        <a class="btn btn-secondary" asp-action="Index">Volver a facturas</a>
+        <a class="btn btn-secondary" asp-controller="Pedidos" asp-action="Details" asp-route-id="@pedido.IdPedido">Ver pedido N° @pedido.IdPedido</a>
+        <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@Model.NumFact">Anular factura</a>
+    </div>
+</div>
+
+<div class="detail-grid">
+    <section class="panel" aria-labelledby="titulo-detalle">
+        <div class="panel-head">
+            <h2 id="titulo-detalle">Detalle</h2>
+        </div>
+        <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>Plato</th>
+                    <th class="text-end">Precio</th>
+                    <th class="text-end">Cantidad</th>
+                    <th class="text-end">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var detalle in pedido.Detalles.OrderBy(d => d.Plato.Nombre))
+                {
+                    <tr>
+                        <td>@detalle.Plato.Nombre</td>
+                        <td class="text-end">@detalle.Plato.Precio.ToString("N2")</td>
+                        <td class="text-end">@detalle.Cantidad</td>
+                        <td class="text-end">@detalle.Subtotal.ToString("N2")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </div>
+        <div class="total-line">
+            <span>Total facturado</span>
+            <strong>@pedido.Total.ToString("N2")</strong>
+        </div>
+    </section>
+
+    <aside class="panel" aria-labelledby="titulo-datos">
+        <div class="panel-head">
+            <h2 id="titulo-datos">Datos</h2>
+        </div>
+        <dl class="kv">
+            <div><dt>NIT</dt><dd class="mono">@Model.NIT</dd></div>
+            <div><dt>Emisión</dt><dd>@Model.FechaEmision.ToString("yyyy-MM-dd HH:mm")</dd></div>
+            <div><dt>Pedido</dt><dd>N° @pedido.IdPedido</dd></div>
+            <div><dt>Mesa</dt><dd>Mesa @pedido.NumMesa</dd></div>
+            <div><dt>Atendió</dt><dd>@pedido.Empleado.Nombre</dd></div>
+        </dl>
+    </aside>
+</div>

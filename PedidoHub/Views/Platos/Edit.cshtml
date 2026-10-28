@@ -1,0 +1,20 @@
+@model Plato
+@{
+    ViewData["Title"] = "Editar plato";
+}
+
+<h1>Editar plato</h1>
+
+<form asp-action="Edit" asp-route-id="@Model.CodPlato" class="form-card">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="CodPlato" />
+    <partial name="_Form" model="Model" />
+    <div class="form-actions">
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+    <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

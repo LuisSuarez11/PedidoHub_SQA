@@ -1,0 +1,54 @@
+@model IEnumerable<Plato>
+@{
+    ViewData["Title"] = "Platos";
+
+    MenuFilaViewModel MenuDe(int id) => new(new[]
+    {
+        new MenuFilaItem("Editar", Url.Action("Edit", new { id })!),
+        new MenuFilaItem("Eliminar", Url.Action("Delete", new { id })!, true)
+    });
+}
+
+<div class="title-row">
+    <div>
+        <h1>Platos</h1>
+        <p class="title-sub">El menú del restaurante. El precio de cada plato se usa para calcular el total de los pedidos.</p>
+    </div>
+    <a class="btn btn-primary" asp-action="Create">Nuevo plato</a>
+</div>
+
+<div class="toolbar">
+    <input type="search" class="form-control toolbar-search" placeholder="Buscar por nombre" aria-label="Buscar en la lista"
+           data-filtro="#tabla-platos" data-cuenta="#cuenta-platos" data-vacio="#vacio-platos" data-singular="plato" data-plural="platos" />
+    <span class="toolbar-count" id="cuenta-platos">@Model.Count() @(Model.Count() == 1 ? "plato" : "platos")</span>
+</div>
+
+<div class="table-responsive">
+<table class="table align-middle" id="tabla-platos">
+    <thead>
+        <tr>
+            <th>Plato</th>
+            <th class="text-end">Precio</th>
+            <th><span class="visually-hidden">Acciones</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var plato in Model)
+        {
+            <tr>
+                <td><a asp-action="Edit" asp-route-id="@plato.CodPlato">@plato.Nombre</a></td>
+                <td class="text-end">@plato.Precio.ToString("N2")</td>
+                <td>
+                    <div class="cell-actions">
+                        <partial name="_MenuFila" model="MenuDe(plato.CodPlato)" />
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
+
+<p class="empty-state" id="vacio-platos" @(Model.Any() ? "hidden" : "")>
+    No hay platos que coincidan. <a asp-action="Create">Agregar un plato</a>.
+</p>
