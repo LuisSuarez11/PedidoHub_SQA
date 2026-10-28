@@ -16,12 +16,13 @@ Etiquetas: `P1` crítica, `P2` alta, `P3` media (prioridad por valor, sección 3
 ## Estado al cierre del sprint (28/10/2026)
 | Backlog | En análisis | En desarrollo | En pruebas | Hecho |
 |---|---|---|---|---|
-| TD-01 Autenticación y roles | — | — | — | HU-01 … HU-12 (12 historias) |
+| TD-01 Claves y bloqueo de intentos | — | — | — | HU-01 … HU-17 (17 historias) |
 | TD-02 Paginación | | | | DEF-01 Reserva en fecha pasada |
 | TD-03 Fuentes locales | | | | DEF-02 Dos pedidos por mesa |
 | TD-04 Cobertura Telefonos | | | | DEF-03 Factura con fecha anterior |
 | TD-05 Análisis estático | | | | DEF-04 Endpoint /health |
 | | | | | DEF-05 Cabeceras de seguridad |
+| | | | | DEF-06 Sin autenticación ni roles |
 
 ## Cómo se integra el plan de pruebas con el tablero
 1. **Cada tarjeta de historia** lleva sus criterios de aceptación y la lista de pruebas que la verifican (columna *Description* del CSV).
@@ -32,6 +33,6 @@ Etiquetas: `P1` crítica, `P2` alta, `P3` media (prioridad por valor, sección 3
 ## Métricas de flujo del sprint
 | Métrica | Valor |
 |---|---|
-| Tarjetas terminadas (throughput) | 17 (12 historias + 5 defectos) |
-| Tarjetas nuevas de deuda técnica | 5 |
+| Tarjetas terminadas (throughput) | 23 (17 historias + 6 defectos) |
+| Tarjetas nuevas de deuda técnica | 5 (TD-01 a TD-05) |
 | WIP máximo respetado | 3 |

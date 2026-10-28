@@ -1,17 +1,28 @@
 // Pruebas E2E con Cypress. Escenarios en estilo BDD (Dado / Cuando / Entonces) y datos únicos
 // para poder ejecutarse más de una vez contra la misma base de datos.
 const unico = (prefijo) => `${prefijo} ${Math.random().toString(36).slice(2, 8)}`;
+// Sesión por rol: se inicia una vez y se reutiliza (cy.session guarda las cookies).
+const ingresar = (usuario = 'admin') =>
+  cy.session(usuario, () => {
+    cy.visit('/Cuenta/Ingresar');
+    cy.get('input[name=NombreUsuario]').type(usuario);
+    cy.get('input[name=Clave]').type(Cypress.env('CLAVE') || 'PedidoHub2026!', { log: false });
+    cy.get('.login-caja button[type=submit]').click();
+    cy.location('pathname').should('eq', '/Home/Servicio');
+  });
+
 
 describe('Navegación y búsqueda', () => {
+  beforeEach(() => ingresar());
   it('Dado el inicio, Cuando carga, Entonces muestra el plano de mesas y la navegación', () => {
-    cy.visit('/');
+    cy.visit('/Home/Servicio');
     cy.title().should('contain', 'PedidoHub');
     cy.contains('main', 'Mesa 1');
     cy.get('nav a.side-link').should('have.length.at.least', 8);
   });
 
   it('Dada la paleta (Ctrl+K), Cuando se busca "Silpancho", Entonces lo encuentra', () => {
-    cy.visit('/');
+    cy.visit('/Home/Servicio');
     cy.get('body').type('{ctrl}k');
     cy.get('#paleta-entrada').type('Silpancho');
     cy.get('#paleta-lista').should('contain', 'Silpancho');
@@ -29,6 +40,7 @@ describe('Navegación y búsqueda', () => {
 });
 
 describe('Clientes y platos', () => {
+  beforeEach(() => ingresar());
   it('Dado un cliente válido, Cuando se registra, Entonces aparece en el listado', () => {
     const nombre = unico('Cliente Cypress');
     cy.visit('/Clientes/Create');
@@ -58,6 +70,7 @@ describe('Clientes y platos', () => {
 });
 
 describe('Reservas', () => {
+  beforeEach(() => ingresar());
   const completar = (fecha, personas) => {
     cy.visit('/Reservas/Create');
     cy.get('select[name=IdCliente]').select('Ana Torres');
@@ -79,6 +92,7 @@ describe('Reservas', () => {
 });
 
 describe('Reportes', () => {
+  beforeEach(() => ingresar());
   it('Dado el reporte de ventas, Cuando las fechas están invertidas, Entonces informa el error', () => {
     cy.visit('/Reportes/Ventas?Desde=2026-10-20&Hasta=2026-10-01');
     cy.contains('La fecha final no puede ser anterior a la inicial.');
@@ -91,6 +105,7 @@ describe('Reportes', () => {
 });
 
 describe('Seguridad básica', () => {
+  beforeEach(() => ingresar());
   it('Dado un POST sin token antiforgery, Cuando se envía, Entonces es rechazado', () => {
     cy.request({ method: 'POST', url: '/Platos/Create', form: true, body: { Nombre: 'X', Precio: '5' }, failOnStatusCode: false })
       .its('status').should('eq', 400);
@@ -101,5 +116,49 @@ describe('Seguridad básica', () => {
       expect(r.headers['x-content-type-options']).to.eq('nosniff');
       expect(r.headers['x-frame-options']).to.eq('DENY');
     });
+  });
+});
+
+describe('Acceso, landing y roles', () => {
+  it('Dado un visitante, Cuando abre la raíz, Entonces ve la landing con indicadores de calidad', () => {
+    cy.visit('/');
+    cy.contains('calidad medible');
+    cy.contains('pruebas automatizadas');
+    cy.contains('a', 'Ingresar').should('have.attr', 'href').and('include', '/Cuenta/Ingresar');
+  });
+
+  it('Dado un visitante, Cuando abre una pantalla interna, Entonces es enviado al login', () => {
+    cy.visit('/Clientes');
+    cy.location('pathname').should('eq', '/Cuenta/Ingresar');
+  });
+
+  it('Dada una clave incorrecta, Cuando se ingresa, Entonces se muestra el error', () => {
+    cy.visit('/Cuenta/Ingresar');
+    cy.get('input[name=NombreUsuario]').type('admin');
+    cy.get('input[name=Clave]').type('incorrecta');
+    cy.get('.login-caja button[type=submit]').click();
+    cy.contains('Usuario o contraseña incorrectos.');
+  });
+
+  it('Dado el administrador, Cuando abre el panel de calidad, Entonces ve las métricas', () => {
+    ingresar('admin');
+    cy.visit('/Calidad');
+    cy.contains('Panel de calidad');
+    cy.contains('Definition of Done');
+    cy.contains('Pirámide de pruebas');
+  });
+
+  it('Dado un mesero, Cuando abre Empleados, Entonces ve acceso denegado', () => {
+    ingresar('mesero');
+    cy.visit('/Empleados');
+    cy.location('pathname').should('eq', '/Cuenta/Denegado');
+    cy.contains('Acceso denegado');
+  });
+
+  it('Dado el cajero, Cuando abre ventas, Entonces puede exportar el CSV', () => {
+    ingresar('cajero');
+    cy.visit('/Reportes/Ventas');
+    cy.contains('Exportar CSV');
+    cy.request('/Reportes/VentasCsv').its('headers.content-type').should('contain', 'text/csv');
   });
 });

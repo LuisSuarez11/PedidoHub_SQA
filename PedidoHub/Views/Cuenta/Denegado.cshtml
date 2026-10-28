@@ -1,0 +1,12 @@
+@{
+    ViewData["Title"] = "Acceso denegado";
+    Layout = "~/Views/Shared/_LayoutPublico.cshtml";
+}
+
+<div class="login-pagina">
+    <div class="login-caja text-center">
+        <h1>Acceso denegado</h1>
+        <p class="text-muted">Su rol no tiene permiso para ver esta pantalla.</p>
+        <a class="btn btn-primary" asp-controller="Home" asp-action="Servicio">Volver al sistema</a>
+    </div>
+</div>

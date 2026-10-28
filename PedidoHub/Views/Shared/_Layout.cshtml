@@ -3,11 +3,13 @@
     var controlador = ViewContext.RouteData.Values["controller"]?.ToString();
     var accion = ViewContext.RouteData.Values["action"]?.ToString();
     string Activo(params string[] controladores) => controladores.Contains(controlador) ? "active" : "";
+    var esAdmin = User.IsInRole("Administrador");
+    var esCajero = User.IsInRole("Cajero");
 
     // Destinos fijos de la paleta de comandos (Ctrl+K); las coincidencias de datos llegan de /Buscar.
     var destinos = new[]
     {
-        new { tipo = "Ir a", titulo = "Servicio", detalle = "Plano de mesas y resumen", url = Url.Action("Index", "Home") },
+        new { tipo = "Ir a", titulo = "Servicio", detalle = "Plano de mesas y resumen", url = Url.Action("Servicio", "Home") },
         new { tipo = "Ir a", titulo = "Pedidos", detalle = "Lista de pedidos", url = Url.Action("Index", "Pedidos") },
         new { tipo = "Ir a", titulo = "Reservas", detalle = "Lista de reservas", url = Url.Action("Index", "Reservas") },
         new { tipo = "Ir a", titulo = "Facturas", detalle = "Facturas emitidas", url = Url.Action("Index", "Facturas") },
@@ -37,13 +39,14 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/profesional.css" asp-append-version="true" />
 </head>
 <body>
     <div class="shell">
         <aside class="sidebar offcanvas-lg offcanvas-start" tabindex="-1" id="menuLateral" aria-label="Menú principal">
             <div class="offcanvas-body p-0">
                 <div class="sidebar-inner w-100">
-                    <a class="brand" asp-controller="Home" asp-action="Index">
+                    <a class="brand" asp-controller="Home" asp-action="Servicio">
                         <img src="~/img/logo.svg" alt="" asp-append-version="true" />
                         <span class="brand-name">Pedido<span class="brand-hub">Hub</span><span class="brand-scope">Gestión de restaurante</span></span>
                     </a>
@@ -54,28 +57,50 @@
                     </button>
 
                     <nav>
-                        <a class="side-link @Activo("Home")" asp-controller="Home" asp-action="Index">Servicio</a>
+                        <a class="side-link @Activo("Home")" asp-controller="Home" asp-action="Servicio">Servicio</a>
                         <a class="side-link @Activo("Pedidos")" asp-controller="Pedidos" asp-action="Index">Pedidos</a>
                         <a class="side-link @Activo("Reservas")" asp-controller="Reservas" asp-action="Index">Reservas</a>
-                        <a class="side-link @Activo("Facturas")" asp-controller="Facturas" asp-action="Index">Facturas</a>
+                        @if (esAdmin || esCajero)
+                        {
+                            <a class="side-link @Activo("Facturas")" asp-controller="Facturas" asp-action="Index">Facturas</a>
+                        }
 
                         <div class="nav-label">Catálogo</div>
                         <a class="side-link @Activo("Clientes", "Telefonos")" asp-controller="Clientes" asp-action="Index">Clientes</a>
                         <a class="side-link @Activo("Mesas")" asp-controller="Mesas" asp-action="Index">Mesas</a>
                         <a class="side-link @Activo("Platos")" asp-controller="Platos" asp-action="Index">Platos</a>
-                        <a class="side-link @Activo("Empleados")" asp-controller="Empleados" asp-action="Index">Empleados</a>
+                        @if (esAdmin)
+                        {
+                            <a class="side-link @Activo("Empleados")" asp-controller="Empleados" asp-action="Index">Empleados</a>
+                        }
 
+                        @if (esAdmin || esCajero)
+                        {
                         <div class="nav-label">Reportes</div>
                         <a class="side-link @(controlador == "Reportes" && accion == "Ventas" ? "active" : "")" asp-controller="Reportes" asp-action="Ventas">Ventas por período</a>
                         <a class="side-link @(controlador == "Reportes" && accion == "PlatosMasVendidos" ? "active" : "")" asp-controller="Reportes" asp-action="PlatosMasVendidos">Platos más vendidos</a>
+                        }
+                        @if (esAdmin)
+                        {
+                            <div class="nav-label">Administración</div>
+                            <a class="side-link @Activo("Calidad")" asp-controller="Calidad" asp-action="Index">Panel de calidad</a>
+                            <a class="side-link @Activo("Bitacora")" asp-controller="Bitacora" asp-action="Index">Bitácora</a>
+                        }
                     </nav>
+                    <div class="usuario-caja">
+                        <span class="nombre">@(User.FindFirst("NombreCompleto")?.Value ?? User.Identity?.Name)</span>
+                        <span class="rol">@(User.IsInRole("Administrador") ? "Administrador" : User.IsInRole("Cajero") ? "Cajero" : "Mesero")</span>
+                        <form asp-controller="Cuenta" asp-action="Salir" method="post" class="mt-2">
+                            <button type="submit" class="btn btn-secondary btn-sm w-100">Cerrar sesión</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </aside>
 
         <div class="sheet-wrap">
             <div class="mobilebar d-lg-none">
-                <a class="brand" asp-controller="Home" asp-action="Index">
+                <a class="brand" asp-controller="Home" asp-action="Servicio">
                     <img src="~/img/logo.svg" alt="" asp-append-version="true" />
                     <span class="brand-name">Pedido<span class="brand-hub">Hub</span></span>
                 </a>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="light">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PedidoHub · @ViewData["Title"]</title>
+    <link rel="icon" type="image/svg+xml" href="~/img/favicon.svg" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/profesional.css" asp-append-version="true" />
+</head>
+<body class="pub-body">
+    <header class="pub-nav">
+        <div class="pub-nav-inner">
+            <a class="brand" asp-controller="Home" asp-action="Index">
+                <img src="~/img/logo.svg" alt="" asp-append-version="true" />
+                <span class="brand-name">Pedido<span class="brand-hub">Hub</span></span>
+            </a>
+            <a class="enlace d-none d-md-inline" href="/#funciones">Funciones</a>
+            <a class="enlace d-none d-md-inline" href="/#calidad">Calidad</a>
+            <a class="enlace d-none d-md-inline" href="/#roles">Roles</a>
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <a class="btn btn-primary" asp-controller="Home" asp-action="Servicio">Ir al sistema</a>
+            }
+            else
+            {
+                <a class="btn btn-primary" asp-controller="Cuenta" asp-action="Ingresar">Ingresar</a>
+            }
+        </div>
+    </header>
+    <main>@RenderBody()</main>
+    <footer class="pub-pie">
+        <div class="pub-wrap">
+            <span>PedidoHub · Proyecto de la asignatura Aseguramiento de la Calidad del Software (SQA)</span>
+            <span>Luis Andrés Suárez Andrade · Universidad Privada del Valle</span>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

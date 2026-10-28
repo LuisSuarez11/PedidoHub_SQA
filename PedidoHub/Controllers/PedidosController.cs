@@ -108,7 +108,7 @@ public class PedidosController : Controller
             !await _context.Empleados.AnyAsync(e => e.IdEmpleado == idEmpleado))
         {
             TempData["Error"] = "Seleccione una mesa y un empleado válidos para abrir el pedido.";
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Servicio", "Home");
         }
 
         var ocupada = await _context.Pedidos.AnyAsync(p => p.NumMesa == numMesa && p.Factura == null &&
@@ -116,7 +116,7 @@ public class PedidosController : Controller
         if (ocupada)
         {
             TempData["Error"] = $"La mesa {numMesa} ya tiene un pedido sin facturar.";
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Servicio", "Home");
         }
 
         var pedido = new Pedido

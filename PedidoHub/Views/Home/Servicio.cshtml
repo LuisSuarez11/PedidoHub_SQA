@@ -1,0 +1,186 @@
+@model InicioViewModel
+@{
+    ViewData["Title"] = "Servicio";
+    var es = new System.Globalization.CultureInfo("es-ES");
+    var masAntiguo = Model.PorCobrar.FirstOrDefault();
+    var proxima = Model.ProximasReservas.FirstOrDefault();
+    var maxUnidades = Model.PlatosTop.Any() ? Model.PlatosTop.Max(p => p.Unidades) : 1;
+}
+
+<div class="title-row">
+    <div>
+        <div class="title-line">
+            <h1>Servicio</h1>
+            <span class="live"><i class="live-dot" aria-hidden="true"></i>En vivo <time data-reloj>@DateTime.Now.ToString("HH:mm")</time></span>
+        </div>
+        <p class="title-sub">
+            @if (masAntiguo is not null)
+            {
+                <text>La mesa @masAntiguo.NumMesa lleva el pedido abierto desde las @masAntiguo.FechaHora.ToString("HH:mm") (@masAntiguo.Total.ToString("N2") por cobrar).</text>
+            }
+            else
+            {
+                <text>No hay pedidos por cobrar.</text>
+            }
+            @if (proxima is not null)
+            {
+                <text> Próxima reserva: @proxima.Cliente, mesa @proxima.NumMesa, @proxima.FechaHora.ToString("d MMM HH:mm", es).</text>
+            }
+        </p>
+    </div>
+    <a class="btn btn-primary" asp-controller="Pedidos" asp-action="Create">Nuevo pedido</a>
+</div>
+
+<section class="panel" aria-labelledby="titulo-mesas">
+    <div class="panel-head">
+        <h2 id="titulo-mesas">Mesas <span class="panel-count">@Model.MesasOcupadas de @Model.Mesas.Count ocupadas</span></h2>
+        <a asp-controller="Mesas" asp-action="Index">Administrar mesas</a>
+    </div>
+    @if (Model.Mesas.Any())
+    {
+        <div class="mesa-grid" style="--cols:@Math.Min(Model.Mesas.Count, 6)">
+            @foreach (var mesa in Model.Mesas)
+            {
+                var destino = mesa.Estado == EstadoMesa.Ocupada
+                    ? Url.Action("Details", "Pedidos", new { id = mesa.Pedido!.IdPedido })
+                    : Url.Action("Create", "Pedidos", new { numMesa = mesa.NumMesa });
+                <a class="mesa @(mesa.Estado == EstadoMesa.Ocupada ? "mesa--ocupada" : "")" href="@destino"
+                   data-panel="@Url.Action("Panel", "Mesas", new { id = mesa.NumMesa })" data-titulo="Mesa @mesa.NumMesa">
+                    <span class="mesa-head">
+                        <span>
+                            <span class="mesa-name">Mesa @mesa.NumMesa</span>
+                            <span class="mesa-cap">@mesa.Capacidad @(mesa.Capacidad == 1 ? "persona" : "personas")</span>
+                        </span>
+                        <svg class="mesa-draw" viewBox="0 0 56 56" width="52" height="52" aria-hidden="true">
+                            <circle cx="28" cy="28" r="11" class="mesa-top-table" />
+                            @for (var i = 0; i < mesa.Capacidad; i++)
+                            {
+                                var angulo = 2 * Math.PI * i / mesa.Capacidad - Math.PI / 2;
+                                <circle class="mesa-seat" r="4.2" style="--i:@i"
+                                        cx="@((28 + 20 * Math.Cos(angulo)).ToString("0.##", System.Globalization.CultureInfo.InvariantCulture))"
+                                        cy="@((28 + 20 * Math.Sin(angulo)).ToString("0.##", System.Globalization.CultureInfo.InvariantCulture))" />
+                            }
+                        </svg>
+                    </span>
+                    @if (mesa.Estado == EstadoMesa.Ocupada)
+                    {
+                        <span><span class="estado estado-abierto">Ocupada</span></span>
+                        <span class="mesa-detail"><strong>@mesa.Pedido!.Total.ToString("N2")</strong> · <span data-desde="@mesa.Pedido.FechaHora.ToString("s")">desde las @mesa.Pedido.FechaHora.ToString("HH:mm")</span> · @mesa.Pedido.Empleado</span>
+                    }
+                    else if (mesa.Estado == EstadoMesa.ReservadaHoy)
+                    {
+                        <span><span class="estado estado-pendiente">Reservada hoy</span></span>
+                        <span class="mesa-detail"><strong>@mesa.ProximaReserva!.Cliente</strong> · @mesa.ProximaReserva.FechaHora.ToString("HH:mm") · @mesa.ProximaReserva.CantPersonas pers.</span>
+                    }
+                    else
+                    {
+                        <span class="mesa-detail">Libre</span>
+                        @if (mesa.ProximaReserva is not null)
+                        {
+                            <span class="mesa-detail">Reserva el @mesa.ProximaReserva.FechaHora.ToString("d MMM HH:mm", es)</span>
+                        }
+                        <span class="mesa-action">Abrir pedido</span>
+                    }
+                </a>
+            }
+        </div>
+    }
+    else
+    {
+        <p class="panel-empty">Todavía no hay mesas registradas. <a asp-controller="Mesas" asp-action="Create">Agregar una mesa</a>.</p>
+    }
+</section>
+
+<div class="home-grid">
+    <section class="panel" aria-labelledby="titulo-cobrar">
+        <div class="panel-head">
+            <h2 id="titulo-cobrar">Por cobrar</h2>
+        </div>
+        <p class="panel-figure hue"><b class="cifra" data-contar="@Model.TotalPorCobrar.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)" data-decimales="2">@Model.TotalPorCobrar.ToString("N2")</b><span>en @Model.PorCobrar.Count @(Model.PorCobrar.Count == 1 ? "pedido" : "pedidos")</span></p>
+        @if (Model.PorCobrar.Any())
+        {
+            <ul class="rows">
+                @foreach (var pedido in Model.PorCobrar.Take(4))
+                {
+                    <li>
+                        <a class="row-item" asp-controller="Pedidos" asp-action="Details" asp-route-id="@pedido.IdPedido">
+                            <span class="row-main">
+                                <strong>Mesa @pedido.NumMesa</strong>
+                                <small>@pedido.Empleado · desde las @pedido.FechaHora.ToString("HH:mm")</small>
+                            </span>
+                            <span class="row-amount">@pedido.Total.ToString("N2")</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p class="panel-empty">No hay pedidos sin facturar.</p>
+        }
+        <div class="panel-foot">
+            <a asp-controller="Pedidos" asp-action="Index" asp-route-estado="Abierto">Ver pedidos abiertos</a>
+        </div>
+    </section>
+
+    <section class="panel" aria-labelledby="titulo-reservas">
+        <div class="panel-head">
+            <h2 id="titulo-reservas">Próximas reservas</h2>
+        </div>
+        <p class="panel-figure"><b class="cifra" data-contar="@Model.ReservasPorAtender" data-decimales="0">@Model.ReservasPorAtender</b><span>por atender</span></p>
+        @if (Model.ProximasReservas.Any())
+        {
+            <ul class="rows">
+                @foreach (var reserva in Model.ProximasReservas)
+                {
+                    <li class="row-item">
+                        <span class="date-chip">
+                            <b>@reserva.FechaHora.ToString("dd")</b>
+                            <small>@reserva.FechaHora.ToString("MMM", es)</small>
+                        </span>
+                        <span class="row-main">
+                            <strong>@reserva.Cliente</strong>
+                            <small>@reserva.FechaHora.ToString("HH:mm") · mesa @reserva.NumMesa · @reserva.CantPersonas pers.</small>
+                        </span>
+                        <span class="estado estado-@reserva.Estado.ToString().ToLower()">@reserva.Estado</span>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p class="panel-empty">No hay reservas próximas.</p>
+        }
+        <div class="panel-foot">
+            <a asp-controller="Reservas" asp-action="Index">Ver todas las reservas</a>
+        </div>
+    </section>
+
+    <section class="panel" aria-labelledby="titulo-ventas">
+        <div class="panel-head">
+            <h2 id="titulo-ventas">Ventas</h2>
+            <span class="text-muted">últimos 30 días</span>
+        </div>
+        <p class="panel-figure"><b class="cifra" data-contar="@Model.VentasTotal.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)" data-decimales="2">@Model.VentasTotal.ToString("N2")</b><span>@Model.FacturasEmitidas @(Model.FacturasEmitidas == 1 ? "factura" : "facturas") · ticket @Model.TicketPromedio.ToString("N2")</span></p>
+        @if (Model.PlatosTop.Any())
+        {
+            <ul class="rows">
+                @foreach (var plato in Model.PlatosTop)
+                {
+                    <li class="bar-row">
+                        <div class="bar-row-top"><span>@plato.Plato</span><span>@plato.Unidades <span class="text-muted">uds.</span></span></div>
+                        <div class="bar-track"><div class="bar-fill" style="width:@((plato.Unidades * 100 / maxUnidades))%"></div></div>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p class="panel-empty">Sin ventas en este período.</p>
+        }
+        <div class="panel-foot panel-foot--links">
+            <a asp-controller="Reportes" asp-action="Ventas">Ventas por período</a>
+            <a asp-controller="Reportes" asp-action="PlatosMasVendidos">Platos más vendidos</a>
+        </div>
+    </section>
+</div>

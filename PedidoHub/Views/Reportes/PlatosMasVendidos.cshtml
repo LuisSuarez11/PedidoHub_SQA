@@ -24,6 +24,9 @@
         <span asp-validation-for="Hasta" class="text-danger"></span>
     </div>
     <div class="col-auto">
+        <a class="btn btn-outline-secondary" asp-action="PlatosCsv" asp-route-desde="@Model.Desde?.ToString("yyyy-MM-dd")" asp-route-hasta="@Model.Hasta?.ToString("yyyy-MM-dd")" asp-route-top="@Model.Top">Exportar CSV</a>
+    </div>
+    <div class="col-auto">
         <label asp-for="Top" class="form-label"></label>
         <input asp-for="Top" type="number" min="1" max="100" class="form-control" />
         <span asp-validation-for="Top" class="text-danger"></span>

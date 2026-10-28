@@ -3,13 +3,13 @@
 ==> Cypress...
 
 powershell : 
-En línea: 2 Carácter: 1
+En línea: 6 Carácter: 1
 + powershell -ExecutionPolicy Bypass -File scripts\run-e2e.ps1 -Solo cy ...
 + ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     + CategoryInfo          : NotSpecified: (:String) [], RemoteException
     + FullyQualifiedErrorId : NativeCommandError
  
-DevTools listening on ws://127.0.0.1:64051/devtools/browser/a708c361-2f09-4765-b40e-1a7e50a2fc1f
+DevTools listening on ws://127.0.0.1:49325/devtools/browser/db060e26-80c1-4240-8e30-cab533e45d9f
 Couldn't determine Mocha version
 
 ====================================================================================================
@@ -32,14 +32,14 @@ Couldn't determine Mocha version
   (Results)
 
   ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
-  │ Tests:        13                                                                               │
-  │ Passing:      13                                                                               │
+  │ Tests:        19                                                                               │
+  │ Passing:      19                                                                               │
   │ Failing:      0                                                                                │
   │ Pending:      0                                                                                │
   │ Skipped:      0                                                                                │
   │ Screenshots:  0                                                                                │
   │ Video:        false                                                                            │
-  │ Duration:     7 seconds                                                                        │
+  │ Duration:     11 seconds                                                                       │
   │ Spec Ran:     pedidohub.cy.js                                                                  │
   └────────────────────────────────────────────────────────────────────────────────────────────────┘
 
@@ -51,8 +51,8 @@ Couldn't determine Mocha version
 
        Spec                                              Tests  Passing  Failing  Pending  Skipped  
   ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
-  │ √  pedidohub.cy.js                          00:07       13       13        -        -        - │
+  │ √  pedidohub.cy.js                          00:11       19       19        -        -        - │
   └────────────────────────────────────────────────────────────────────────────────────────────────┘
-    √  All specs passed!                        00:07       13       13        -        -        -  
+    √  All specs passed!                        00:11       19       19        -        -        -  
 
 

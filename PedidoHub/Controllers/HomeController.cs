@@ -8,6 +8,7 @@ using PedidoHub.ViewModels;
 
 namespace PedidoHub.Controllers;
 
+[Microsoft.AspNetCore.Authorization.Authorize]
 public class HomeController : Controller
 {
     private const int DiasResumen = 30;
@@ -15,14 +16,19 @@ public class HomeController : Controller
 
     private readonly PedidoHubDbContext _context;
     private readonly ReporteService _reportes;
+    private readonly CalidadService _calidad;
 
-    public HomeController(PedidoHubDbContext context, ReporteService reportes)
+    public HomeController(PedidoHubDbContext context, ReporteService reportes, CalidadService calidad)
     {
         _context = context;
         _reportes = reportes;
+        _calidad = calidad;
     }
 
-    public async Task<IActionResult> Index()
+    [Microsoft.AspNetCore.Authorization.AllowAnonymous]
+    public IActionResult Index() => View(new CalidadViewModel { Datos = _calidad.Leer() });
+
+    public async Task<IActionResult> Servicio()
     {
         var hoy = DateTime.Today;
         var manana = hoy.AddDays(1);
@@ -76,6 +82,7 @@ public class HomeController : Controller
         });
     }
 
+    [Microsoft.AspNetCore.Authorization.AllowAnonymous]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

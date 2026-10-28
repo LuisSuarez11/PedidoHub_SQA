@@ -18,9 +18,34 @@ public abstract class PruebaIntegracion : IDisposable
     protected PedidoHubFactory Fabrica { get; } = new();
     protected HttpClient Cliente { get; }
 
+    public const string ClaveDemo = "PedidoHub2026!";
+
+    /// <summary>Por defecto cada prueba inicia sesión como administrador, igual que un usuario real.</summary>
     protected PruebaIntegracion()
     {
-        Cliente = Fabrica.CreateClient(new WebApplicationFactoryClientOptions { AllowAutoRedirect = false });
+        Cliente = CrearCliente();
+        IniciarSesionAsync(Cliente, "admin").GetAwaiter().GetResult();
+    }
+
+    protected HttpClient CrearCliente() =>
+        Fabrica.CreateClient(new WebApplicationFactoryClientOptions { AllowAutoRedirect = false });
+
+    /// <summary>Cliente HTTP nuevo (sin cookies) con la sesión de otro usuario.</summary>
+    protected async Task<HttpClient> ClienteDeAsync(string usuario)
+    {
+        var cliente = CrearCliente();
+        await IniciarSesionAsync(cliente, usuario);
+        return cliente;
+    }
+
+    protected static async Task<HttpResponseMessage> IniciarSesionAsync(HttpClient cliente, string usuario, string clave = ClaveDemo)
+    {
+        var pagina = await cliente.GetStringAsync("/Cuenta/Ingresar");
+        var token = TokenRegex.Match(pagina).Groups[1].Value;
+        return await cliente.PostAsync("/Cuenta/Ingresar", new FormUrlEncodedContent(new Dictionary<string, string>
+        {
+            ["NombreUsuario"] = usuario, ["Clave"] = clave, ["__RequestVerificationToken"] = token
+        }));
     }
 
     protected async Task<string> LeerAsync(string url)

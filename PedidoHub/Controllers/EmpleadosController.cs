@@ -6,6 +6,9 @@ using PedidoHub.ViewModels;
 
 namespace PedidoHub.Controllers;
 
+using Microsoft.AspNetCore.Authorization;
+
+[Authorize(Roles = PedidoHub.Models.Roles.Administrador)]
 public class EmpleadosController : Controller
 {
     private readonly PedidoHubDbContext _context;

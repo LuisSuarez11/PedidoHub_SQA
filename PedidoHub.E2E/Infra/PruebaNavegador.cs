@@ -17,7 +17,10 @@ public abstract class PruebaNavegador : IDisposable
     protected IWebDriver Navegador { get; }
     protected WebDriverWait Espera { get; }
 
-    protected PruebaNavegador()
+    protected static readonly string Clave =
+        Environment.GetEnvironmentVariable("PEDIDOHUB_CLAVE") ?? "PedidoHub2026!";
+
+    protected PruebaNavegador(string? usuario = "admin")
     {
         var opciones = new ChromeOptions();
         if (Environment.GetEnvironmentVariable("E2E_VISIBLE") != "1")
@@ -29,6 +32,19 @@ public abstract class PruebaNavegador : IDisposable
         Navegador = new ChromeDriver(opciones);
         Navegador.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
         Espera = new WebDriverWait(Navegador, TimeSpan.FromSeconds(10));
+
+        if (usuario is not null)
+        {
+            IniciarSesion(usuario);
+        }
+    }
+
+    protected void IniciarSesion(string usuario, string? clave = null)
+    {
+        Ir("/Cuenta/Ingresar");
+        Escribir("NombreUsuario", usuario);
+        Escribir("Clave", clave ?? Clave);
+        Navegador.FindElement(By.CssSelector(".login-caja button[type=submit]")).Click();
     }
 
     protected void Ir(string ruta) => Navegador.Navigate().GoToUrl(UrlBase + ruta);

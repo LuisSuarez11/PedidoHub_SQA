@@ -1,0 +1,440 @@
+{
+    "actualizado":  "2026-10-28",
+    "sprint":  "Sprint 1 · Kanban con cadencia semanal",
+    "metaCobertura":  80,
+    "pruebas":  [
+                    {
+                        "nombre":  "Unitarias",
+                        "herramienta":  "xUnit",
+                        "total":  46,
+                        "pasadas":  46
+                    },
+                    {
+                        "nombre":  "Integración y aceptación (BDD)",
+                        "herramienta":  "xUnit + WebApplicationFactory",
+                        "total":  134,
+                        "pasadas":  134
+                    },
+                    {
+                        "nombre":  "E2E navegador",
+                        "herramienta":  "Selenium WebDriver",
+                        "total":  17,
+                        "pasadas":  17
+                    },
+                    {
+                        "nombre":  "E2E navegador",
+                        "herramienta":  "Cypress",
+                        "total":  19,
+                        "pasadas":  19
+                    }
+                ],
+    "cobertura":  [
+                      {
+                          "archivo":  "ViewModels/AgregarPlatoViewModel.cs",
+                          "cubiertas":  4,
+                          "validas":  4
+                      },
+                      {
+                          "archivo":  "ViewModels/CalidadViewModel.cs",
+                          "cubiertas":  35,
+                          "validas":  39
+                      },
+                      {
+                          "archivo":  "ViewModels/ClienteFormViewModel.cs",
+                          "cubiertas":  2,
+                          "validas":  2
+                      },
+                      {
+                          "archivo":  "ViewModels/ConfirmarEliminarViewModel.cs",
+                          "cubiertas":  4,
+                          "validas":  4
+                      },
+                      {
+                          "archivo":  "ViewModels/CuentaViewModels.cs",
+                          "cubiertas":  3,
+                          "validas":  3
+                      },
+                      {
+                          "archivo":  "ViewModels/FacturaFormViewModel.cs",
+                          "cubiertas":  5,
+                          "validas":  5
+                      },
+                      {
+                          "archivo":  "ViewModels/InicioViewModel.cs",
+                          "cubiertas":  18,
+                          "validas":  18
+                      },
+                      {
+                          "archivo":  "ViewModels/MenuFilaViewModel.cs",
+                          "cubiertas":  2,
+                          "validas":  2
+                      },
+                      {
+                          "archivo":  "ViewModels/MesaPanelViewModel.cs",
+                          "cubiertas":  4,
+                          "validas":  4
+                      },
+                      {
+                          "archivo":  "ViewModels/PedidoDetalleViewModel.cs",
+                          "cubiertas":  3,
+                          "validas":  3
+                      },
+                      {
+                          "archivo":  "ViewModels/PedidoFormViewModel.cs",
+                          "cubiertas":  7,
+                          "validas":  7
+                      },
+                      {
+                          "archivo":  "ViewModels/ReportePlatosViewModel.cs",
+                          "cubiertas":  7,
+                          "validas":  7
+                      },
+                      {
+                          "archivo":  "ViewModels/ReporteVentasViewModel.cs",
+                          "cubiertas":  9,
+                          "validas":  9
+                      },
+                      {
+                          "archivo":  "ViewModels/ReservaFormViewModel.cs",
+                          "cubiertas":  8,
+                          "validas":  8
+                      },
+                      {
+                          "archivo":  "Services/CalidadService.cs",
+                          "cubiertas":  10,
+                          "validas":  12
+                      },
+                      {
+                          "archivo":  "Services/InicializadorUsuarios.cs",
+                          "cubiertas":  20,
+                          "validas":  25
+                      },
+                      {
+                          "archivo":  "Services/ReporteService.cs",
+                          "cubiertas":  54,
+                          "validas":  54
+                      },
+                      {
+                          "archivo":  "Models/Bitacora.cs",
+                          "cubiertas":  6,
+                          "validas":  7
+                      },
+                      {
+                          "archivo":  "Models/Cliente.cs",
+                          "cubiertas":  4,
+                          "validas":  4
+                      },
+                      {
+                          "archivo":  "Models/Empleado.cs",
+                          "cubiertas":  4,
+                          "validas":  4
+                      },
+                      {
+                          "archivo":  "Models/ErrorViewModel.cs",
+                          "cubiertas":  0,
+                          "validas":  2
+                      },
+                      {
+                          "archivo":  "Models/Factura.cs",
+                          "cubiertas":  5,
+                          "validas":  5
+                      },
+                      {
+                          "archivo":  "Models/Mesa.cs",
+                          "cubiertas":  4,
+                          "validas":  4
+                      },
+                      {
+                          "archivo":  "Models/Pedido.cs",
+                          "cubiertas":  10,
+                          "validas":  10
+                      },
+                      {
+                          "archivo":  "Models/PedidoPlato.cs",
+                          "cubiertas":  6,
+                          "validas":  6
+                      },
+                      {
+                          "archivo":  "Models/Plato.cs",
+                          "cubiertas":  4,
+                          "validas":  4
+                      },
+                      {
+                          "archivo":  "Models/Reserva.cs",
+                          "cubiertas":  8,
+                          "validas":  8
+                      },
+                      {
+                          "archivo":  "Models/TelefonoCliente.cs",
+                          "cubiertas":  4,
+                          "validas":  4
+                      },
+                      {
+                          "archivo":  "Models/Usuario.cs",
+                          "cubiertas":  4,
+                          "validas":  6
+                      },
+                      {
+                          "archivo":  "Data/PedidoHubDbContext.cs",
+                          "cubiertas":  58,
+                          "validas":  60
+                      },
+                      {
+                          "archivo":  "Controllers/BitacoraController.cs",
+                          "cubiertas":  26,
+                          "validas":  26
+                      },
+                      {
+                          "archivo":  "Controllers/BuscarController.cs",
+                          "cubiertas":  39,
+                          "validas":  56
+                      },
+                      {
+                          "archivo":  "Controllers/CalidadController.cs",
+                          "cubiertas":  21,
+                          "validas":  21
+                      },
+                      {
+                          "archivo":  "Controllers/ClientesController.cs",
+                          "cubiertas":  69,
+                          "validas":  101
+                      },
+                      {
+                          "archivo":  "Controllers/CuentaController.cs",
+                          "cubiertas":  35,
+                          "validas":  40
+                      },
+                      {
+                          "archivo":  "Controllers/EmpleadosController.cs",
+                          "cubiertas":  46,
+                          "validas":  76
+                      },
+                      {
+                          "archivo":  "Controllers/FacturasController.cs",
+                          "cubiertas":  101,
+                          "validas":  127
+                      },
+                      {
+                          "archivo":  "Controllers/HomeController.cs",
+                          "cubiertas":  54,
+                          "validas":  57
+                      },
+                      {
+                          "archivo":  "Controllers/MesasController.cs",
+                          "cubiertas":  87,
+                          "validas":  106
+                      },
+                      {
+                          "archivo":  "Controllers/PedidosController.cs",
+                          "cubiertas":  225,
+                          "validas":  271
+                      },
+                      {
+                          "archivo":  "Controllers/PlatosController.cs",
+                          "cubiertas":  55,
+                          "validas":  86
+                      },
+                      {
+                          "archivo":  "Controllers/ReportesController.cs",
+                          "cubiertas":  62,
+                          "validas":  67
+                      },
+                      {
+                          "archivo":  "Controllers/ReservasController.cs",
+                          "cubiertas":  141,
+                          "validas":  162
+                      },
+                      {
+                          "archivo":  "Controllers/TelefonosController.cs",
+                          "cubiertas":  55,
+                          "validas":  107
+                      }
+                  ],
+    "defectos":  [
+                     {
+                         "id":  "DEF-01",
+                         "titulo":  "Reserva nueva aceptada con fecha pasada",
+                         "severidad":  "Mayor",
+                         "estado":  "Cerrado",
+                         "prueba":  "Dada_una_fecha_pasada_Cuando_se_registra_una_reserva_nueva"
+                     },
+                     {
+                         "id":  "DEF-02",
+                         "titulo":  "Dos pedidos sin facturar en la misma mesa",
+                         "severidad":  "Mayor",
+                         "estado":  "Cerrado",
+                         "prueba":  "Dada_una_mesa_con_pedido_sin_facturar_Cuando_se_crea_otro"
+                     },
+                     {
+                         "id":  "DEF-03",
+                         "titulo":  "Factura con fecha anterior al pedido",
+                         "severidad":  "Mayor",
+                         "estado":  "Cerrado",
+                         "prueba":  "Dada_una_fecha_de_emision_anterior_al_pedido"
+                     },
+                     {
+                         "id":  "DEF-04",
+                         "titulo":  "Sin endpoint de salud para monitoreo y CI",
+                         "severidad":  "Menor",
+                         "estado":  "Cerrado",
+                         "prueba":  "Health_ReportaQueLaAplicacionYLaBaseDeDatosEstanVivas"
+                     },
+                     {
+                         "id":  "DEF-05",
+                         "titulo":  "Respuestas sin cabeceras de seguridad",
+                         "severidad":  "Menor",
+                         "estado":  "Cerrado",
+                         "prueba":  "RespuestasHtml_IncluyenCabecerasDeSeguridad"
+                     },
+                     {
+                         "id":  "DEF-06",
+                         "titulo":  "Sin autenticación ni control de acceso por rol",
+                         "severidad":  "Crítica",
+                         "estado":  "Cerrado",
+                         "prueba":  "SeguridadTests (login, roles, acceso denegado)"
+                     }
+                 ],
+    "historias":  [
+                      {
+                          "id":  "HU-01",
+                          "titulo":  "Plano de mesas en vivo",
+                          "prioridad":  "P2",
+                          "pruebas":  "NavegacionTests, E2E-01",
+                          "estado":  "Hecho"
+                      },
+                      {
+                          "id":  "HU-02",
+                          "titulo":  "Abrir pedido en mesa libre",
+                          "prioridad":  "P1",
+                          "pruebas":  "ReglasDeNegocioTests",
+                          "estado":  "Hecho"
+                      },
+                      {
+                          "id":  "HU-03",
+                          "titulo":  "Agregar platos al pedido",
+                          "prioridad":  "P1",
+                          "pruebas":  "ReglasDeNegocioTests, CatalogosYOperacionesTests",
+                          "estado":  "Hecho"
+                      },
+                      {
+                          "id":  "HU-04",
+                          "titulo":  "Facturar un pedido",
+                          "prioridad":  "P1",
+                          "pruebas":  "ReglasDeNegocioTests",
+                          "estado":  "Hecho"
+                      },
+                      {
+                          "id":  "HU-05",
+                          "titulo":  "Anular una factura",
+                          "prioridad":  "P1",
+                          "pruebas":  "ReglasDeNegocioTests",
+                          "estado":  "Hecho"
+                      },
+                      {
+                          "id":  "HU-06",
+                          "titulo":  "Reservar mesas sin choques",
+                          "prioridad":  "P2",
+                          "pruebas":  "ReglasDeNegocioTests, E2E-06/07, Cypress",
+                          "estado":  "Hecho"
+                      },
+                      {
+                          "id":  "HU-07",
+                          "titulo":  "Clientes y teléfonos",
+                          "prioridad":  "P2",
+                          "pruebas":  "CatalogosYOperacionesTests",
+                          "estado":  "Hecho"
+                      },
+                      {
+                          "id":  "HU-08",
+                          "titulo":  "Gestión de platos",
+                          "prioridad":  "P2",
+                          "pruebas":  "ReglasDeNegocioTests",
+                          "estado":  "Hecho"
+                      },
+                      {
+                          "id":  "HU-09",
+                          "titulo":  "Reporte de ventas",
+                          "prioridad":  "P1",
+                          "pruebas":  "ReporteServiceTests, ReportesCsvTests",
+                          "estado":  "Hecho"
+                      },
+                      {
+                          "id":  "HU-10",
+                          "titulo":  "Platos más vendidos",
+                          "prioridad":  "P3",
+                          "pruebas":  "ReporteServiceTests",
+                          "estado":  "Hecho"
+                      },
+                      {
+                          "id":  "HU-11",
+                          "titulo":  "Endpoint de salud",
+                          "prioridad":  "P3",
+                          "pruebas":  "NavegacionTests",
+                          "estado":  "Hecho"
+                      },
+                      {
+                          "id":  "HU-12",
+                          "titulo":  "Seguridad por defecto",
+                          "prioridad":  "P2",
+                          "pruebas":  "NavegacionTests, Cypress",
+                          "estado":  "Hecho"
+                      },
+                      {
+                          "id":  "HU-13",
+                          "titulo":  "Inicio de sesión y roles",
+                          "prioridad":  "P1",
+                          "pruebas":  "SeguridadTests, E2E-12/13, Cypress",
+                          "estado":  "Hecho"
+                      },
+                      {
+                          "id":  "HU-14",
+                          "titulo":  "Bitácora de auditoría",
+                          "prioridad":  "P2",
+                          "pruebas":  "BitacoraTests",
+                          "estado":  "Hecho"
+                      },
+                      {
+                          "id":  "HU-15",
+                          "titulo":  "Panel de calidad",
+                          "prioridad":  "P3",
+                          "pruebas":  "SeguridadTests, E2E-14",
+                          "estado":  "Hecho"
+                      },
+                      {
+                          "id":  "HU-16",
+                          "titulo":  "Página de presentación (landing)",
+                          "prioridad":  "P3",
+                          "pruebas":  "NavegacionTests, E2E-12",
+                          "estado":  "Hecho"
+                      },
+                      {
+                          "id":  "HU-17",
+                          "titulo":  "Exportar reportes a CSV",
+                          "prioridad":  "P2",
+                          "pruebas":  "ReportesCsvTests",
+                          "estado":  "Hecho"
+                      }
+                  ],
+    "dod":  [
+                {
+                    "texto":  "Pruebas escritas antes del código y en verde (TDD)",
+                    "cumple":  true
+                },
+                {
+                    "texto":  "Cero defectos críticos o mayores abiertos",
+                    "cumple":  true
+                },
+                {
+                    "texto":  "Criterios de aceptación verificados con pruebas automatizadas",
+                    "cumple":  true
+                },
+                {
+                    "texto":  "Pipeline de CI definido (GitHub Actions)",
+                    "cumple":  true
+                },
+                {
+                    "texto":  "Documentación y Test Plan actualizados",
+                    "cumple":  true
+                }
+            ]
+}

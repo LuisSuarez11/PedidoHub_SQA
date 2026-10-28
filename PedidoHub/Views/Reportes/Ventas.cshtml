@@ -33,6 +33,7 @@
     <div class="col-auto">
         <button type="submit" class="btn btn-primary">Generar reporte</button>
         <a class="btn btn-link" asp-action="Ventas">Limpiar</a>
+        <a class="btn btn-outline-secondary" asp-action="VentasCsv" asp-route-desde="@Model.Desde?.ToString("yyyy-MM-dd")" asp-route-hasta="@Model.Hasta?.ToString("yyyy-MM-dd")" asp-route-idEmpleado="@Model.IdEmpleado">Exportar CSV</a>
     </div>
     <div class="col-12 d-flex flex-wrap align-items-center gap-2">
         <span class="text-muted">Período rápido:</span>

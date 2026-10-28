@@ -6,6 +6,7 @@ using PedidoHub.ViewModels;
 
 namespace PedidoHub.Controllers;
 
+[Microsoft.AspNetCore.Authorization.Authorize(Roles = PedidoHub.Models.Roles.Administrador + "," + PedidoHub.Models.Roles.Cajero)]
 public class FacturasController : Controller
 {
     private readonly PedidoHubDbContext _context;

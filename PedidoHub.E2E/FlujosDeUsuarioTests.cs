@@ -13,7 +13,7 @@ public class FlujosDeUsuarioTests : PruebaNavegador
     [Fact]
     public void E2E_01_Dado_el_inicio_Cuando_se_abre_Entonces_muestra_el_plano_con_las_mesas()
     {
-        Ir("/");
+        Ir("/Home/Servicio");
 
         Assert.Contains("PedidoHub", Navegador.Title);
         var texto = Navegador.FindElement(By.TagName("main")).Text;
@@ -24,7 +24,7 @@ public class FlujosDeUsuarioTests : PruebaNavegador
     [Fact]
     public void E2E_02_Dada_la_paleta_Cuando_se_busca_un_plato_Entonces_aparece_en_los_resultados()
     {
-        Ir("/");
+        Ir("/Home/Servicio");
 
         Navegador.FindElement(By.TagName("body")).SendKeys(Keys.Control + "k");
         var entrada = Espera.Until(d => d.FindElement(By.Id("paleta-entrada")));
@@ -134,7 +134,7 @@ public class FlujosDeUsuarioTests : PruebaNavegador
     public void E2E_11_Dada_una_pantalla_movil_Cuando_se_abre_el_inicio_Entonces_el_menu_es_accesible_por_boton()
     {
         Navegador.Manage().Window.Size = new System.Drawing.Size(390, 844);
-        Ir("/");
+        Ir("/Home/Servicio");
 
         var boton = Navegador.FindElement(By.CssSelector("[data-bs-target='#menuLateral']"));
         Assert.True(boton.Displayed);

@@ -8,6 +8,9 @@ public class NavegacionTests : PruebaIntegracion
 {
     [Theory]
     [InlineData("/")]
+    [InlineData("/Home/Servicio")]
+    [InlineData("/Calidad")]
+    [InlineData("/Bitacora")]
     [InlineData("/Clientes")]
     [InlineData("/Clientes/Details/1")]
     [InlineData("/Clientes/Create")]
@@ -45,7 +48,7 @@ public class NavegacionTests : PruebaIntegracion
     [Fact]
     public async Task Inicio_MuestraElPlanoDeMesasConLasCincoMesas()
     {
-        var html = await LeerAsync("/");
+        var html = await LeerAsync("/Home/Servicio");
 
         for (var mesa = 1; mesa <= 5; mesa++)
         {

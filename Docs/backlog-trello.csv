@@ -16,8 +16,13 @@ Card Name,Description,List,Labels,Prioridad,Tipo
 "DEF-03 Factura con fecha anterior al pedido","Severidad Mayor (integridad contable). Corregido en FacturasController.Create",Hecho,"Defecto",Alta,Defecto
 "DEF-04 Sin endpoint de salud","Severidad Menor (operabilidad). Agregado /health",Hecho,"Defecto",Media,Defecto
 "DEF-05 Sin cabeceras de seguridad","Severidad Menor (seguridad). Middleware en Program.cs",Hecho,"Defecto",Media,Defecto
-"TD-01 Autenticación y roles","Deuda técnica: cualquiera puede operar el sistema. Incluir pruebas de autorización",Backlog,"Deuda técnica",Alta,Deuda
+"HU-13 Inicio de sesión y roles","Login con clave hasheada; sin sesión va al login; el mesero no accede a Empleados/Facturas/Reportes/Calidad. Pruebas: SeguridadTests, E2E-12 a E2E-17, Cypress",Hecho,"P1",Alta,Historia
+"HU-14 Bitácora de auditoría","Registra usuario, fecha, entidad y valores anterior-nuevo de cada cambio. Pruebas: BitacoraTests",Hecho,"P2",Media,Historia
+"HU-15 Panel de calidad","KPIs, pirámide de pruebas, cobertura, defectos, trazabilidad y DoD. Pruebas: SeguridadTests, E2E-15",Hecho,"P3",Media,Historia
+"HU-16 Landing pública","Página de presentación con funciones, roles e indicadores de calidad. Pruebas: SeguridadTests, E2E-12",Hecho,"P3",Baja,Historia
+"HU-17 Exportar reportes a CSV","CSV con BOM, filtros, validación de fechas y neutralización de fórmulas. Pruebas: ReportesCsvTests",Hecho,"P2",Media,Historia
+"DEF-06 Sin autenticación ni control de acceso","Severidad Crítica. Corregido con login, roles y bitácora",Hecho,"Defecto",Alta,Defecto"TD-01 Endurecer claves y bloqueo de intentos","Cambiar claves de demostración y bloquear tras intentos fallidos. Con pruebas",Backlog,"Deuda técnica",Alta,Deuda
 "TD-02 Paginación en listados","Pedidos, reservas y facturas crecen sin límite. Agregar prueba de rendimiento",Backlog,"Deuda técnica",Media,Deuda
 "TD-03 Fuentes locales (sin Google Fonts)","Dependencia externa en _Layout",Backlog,"Deuda técnica",Baja,Deuda
-"TD-04 Subir cobertura de TelefonosController (51%)","Agregar pruebas de edición y rutas de error",Backlog,"Deuda técnica",Media,Deuda
+"TD-04 Subir cobertura de TelefonosController (51%) y EmpleadosController (60%)","Agregar pruebas de edición y rutas de error",Backlog,"Deuda técnica",Media,Deuda
 "TD-05 Análisis estático Roslyn en CI","Agregar analizadores y fallar el pipeline con advertencias nuevas",Backlog,"Deuda técnica",Baja,Deuda

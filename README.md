@@ -67,7 +67,7 @@ Ver la carpeta `Docs/` y `Docs/CAMBIOS_DER.md`.
 
 ## Aseguramiento de la calidad (SQA)
 
-Este repositorio es la versión de la asignatura **SQA**. Incluye el Test Plan ágil, 164 pruebas automatizadas y la auditoría interna.
+Este repositorio es la versión de la asignatura **SQA**. Incluye el Test Plan ágil, 216 pruebas automatizadas y la auditoría interna.
 
 | Qué | Dónde |
 |---|---|
@@ -75,9 +75,9 @@ Este repositorio es la versión de la asignatura **SQA**. Incluye el Test Plan �
 | Informe de auditoría interna | `Docs/InformeAuditoria.md` |
 | Tablero Kanban y backlog importable | `Docs/TableroKanban.md`, `Docs/backlog-trello.csv` |
 | Evidencias (TRX, JUnit, cobertura, fase roja TDD) | `Docs/evidencias/` |
-| Unitarias + integración (xUnit, 140) | `PedidoHub.Tests/` |
-| E2E Selenium (11) | `PedidoHub.E2E/` |
-| E2E Cypress (13) | `cypress/` |
+| Unitarias + integración (xUnit, 180) | `PedidoHub.Tests/` |
+| E2E Selenium (17) | `PedidoHub.E2E/` |
+| E2E Cypress (19) | `cypress/` |
 | CI/CD | `.github/workflows/ci.yml` |
 
 ```bash
@@ -86,4 +86,21 @@ powershell scripts/cobertura.ps1                 # + cobertura en Docs/evidencia
 powershell scripts/run-e2e.ps1                   # Selenium + Cypress contra LocalDB (PedidoHubDB_QA)
 ```
 
-Mejoras de calidad añadidas a la aplicación: validación de reservas en el pasado, una sola cuenta abierta por mesa, fecha de factura coherente con el pedido, endpoint `/health` y cabeceras de seguridad.
+Mejoras añadidas a la aplicación durante el trabajo de SQA:
+
+- **Landing pública** en `/` con funciones, roles e indicadores de calidad.
+- **Inicio de sesión y roles** (Administrador, Cajero, Mesero): cookie HttpOnly, claves con hash PBKDF2, acceso denegado por rol.
+- **Bitácora de auditoría** (`/Bitacora`): quién creó, modificó o eliminó cada dato, con valor anterior y nuevo.
+- **Panel de calidad** (`/Calidad`): métricas del Test Plan junto al estado vivo del sistema.
+- **Exportación a CSV** de los reportes de ventas y de platos.
+- Validación de reservas en el pasado, una sola cuenta abierta por mesa, fecha de factura coherente con el pedido, endpoint `/health` y cabeceras de seguridad.
+
+### Usuarios de demostración
+
+| Usuario | Rol |
+|---|---|
+| `admin` | Administrador |
+| `cajero` | Cajero |
+| `mesero` | Mesero |
+
+La contraseña inicial de los tres es `PedidoHub2026!` (configurable con `Seed:Clave`). Al iniciar, la aplicación aplica las migraciones en SQL Server y crea estos usuarios si no existen. **Cámbiela en cualquier despliegue real.**

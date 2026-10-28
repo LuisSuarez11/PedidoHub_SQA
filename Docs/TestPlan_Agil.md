@@ -32,7 +32,7 @@ Al ser un equipo de una persona, los roles se **ejercen por separado en momentos
 > **Nota de independencia:** para reducir el sesgo de autorrevisión, la verificación de cada historia se hace con pruebas escritas **antes** del código (TDD) y se registra la ejecución en rojo y luego en verde (`Docs/evidencias/tdd-fase-roja.txt`).
 
 ### 0.3 Artefactos del sprint sometidos a pruebas
-- Historias de usuario HU-01 a HU-12 (sección 2).
+- Historias de usuario HU-01 a HU-17 (sección 2).
 - Código fuente: controladores, servicio de reportes, modelos y vistas.
 - Esquema y datos de ejemplo (migración `CrearModeloPedidoHub`).
 - Endpoint de operación `/health` y cabeceras HTTP de seguridad.
@@ -83,15 +83,20 @@ Funcionalidades y historias cubiertas en el sprint (fuente: README del proyecto 
 | HU-10 | Como gerente, quiero ver los platos más vendidos | Media | Solo pedidos facturados; orden por unidades y luego nombre |
 | HU-11 | Como operador, quiero un endpoint de salud | Media | `/health` responde `Healthy` si la BD está disponible |
 | HU-12 | Como usuario, quiero que la aplicación sea segura por defecto | Alta | Antiforgery en POST; cabeceras `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy` |
+| HU-13 | Como administrador, quiero iniciar sesión y que cada rol vea solo lo suyo | Alta | Login con clave hasheada; sin sesión → login; mesero sin acceso a Empleados/Facturas/Reportes/Calidad; cookie HttpOnly; sin redirección abierta |
+| HU-14 | Como administrador, quiero una bitácora de quién cambió qué | Media | Cada alta, cambio y baja registra usuario, fecha, entidad y valores anterior → nuevo |
+| HU-15 | Como administrador, quiero un panel con las métricas de calidad | Media | KPIs, pirámide de pruebas, cobertura por archivo, defectos, trazabilidad y DoD |
+| HU-16 | Como visitante, quiero una página de presentación del sistema | Baja | La raíz `/` es pública, muestra funciones, roles e indicadores de calidad |
+| HU-17 | Como gerente, quiero exportar los reportes a CSV | Media | Archivo `text/csv` con BOM, filtros respetados, fechas inválidas → 400, neutraliza fórmulas de Excel |
 
-**Fuera de alcance (este sprint):** autenticación/roles, paginación, pruebas de carga, internacionalización. Se registran como deuda en la sección 8 y en el backlog.
+**Fuera de alcance (este sprint):** paginación de los listados, pruebas de carga, internacionalización. Se registran como deuda en la sección 8 y en el backlog.
 
 ---
 
 ## 3. Estrategia de pruebas
 ### 3.1 Pirámide de pruebas
 ```
-          /  E2E  \        Selenium (C#) + Cypress (JS)   — flujos críticos, 24 escenarios
+          /  E2E  \        Selenium (C#) + Cypress (JS)   — flujos críticos, 36 escenarios
          /----------\
         / Integración \    xUnit + WebApplicationFactory + SQLite — reglas de negocio vía HTTP
        /----------------\
@@ -102,7 +107,7 @@ Funcionalidades y historias cubiertas en el sprint (fuente: README del proyecto 
 | Tipo | Qué cubre | Herramienta | Automatizada |
 |---|---|---|---|
 | Unitarias | Validaciones de modelos, totales, métricas de reportes, consultas de `ReporteService` | xUnit | Sí |
-| Integración | Controladores + vistas + EF Core con BD SQLite en memoria; antiforgery; redirecciones | xUnit + `WebApplicationFactory` (140 pruebas) | Sí |
+| Integración | Controladores + vistas + EF Core con BD SQLite en memoria; antiforgery; redirecciones | xUnit + `WebApplicationFactory` (134 pruebas) y unitarias (46) | Sí |
 | Aceptación (BDD) | Reglas de negocio redactadas como Dado/Cuando/Entonces | xUnit (nomenclatura Gherkin) | Sí |
 | End-to-end | Flujos de usuario reales en navegador | **Selenium WebDriver** (Chrome) y **Cypress** | Sí |
 | Regresión | Toda la suite en cada cambio | CI (GitHub Actions) | Sí |
@@ -111,8 +116,9 @@ Funcionalidades y historias cubiertas en el sprint (fuente: README del proyecto 
 | Humo | Todas las pantallas responden 200 | xUnit (`NavegacionTests`) | Sí |
 
 ### 3.3 TDD, BDD y ATDD
-- **TDD:** para HU-04, HU-06, HU-02 (edición/creación), HU-11 y HU-12 se escribieron primero las pruebas. La ejecución inicial quedó **en rojo (5 fallos esperados de 96)** y tras implementar pasó a **verde (96/96 en ese momento; 164/164 al cierre del sprint con las pruebas añadidas después)**. Evidencia: `Docs/evidencias/tdd-fase-roja.txt`.
+- **TDD:** para HU-04, HU-06, HU-02 (edición/creación), HU-11 y HU-12 se escribieron primero las pruebas. La ejecución inicial quedó **en rojo (5 fallos esperados de 96)** y tras implementar pasó a **verde (96/96 en ese momento; 216/216 al cierre del sprint con las pruebas añadidas después)**. Evidencia: `Docs/evidencias/tdd-fase-roja.txt`.
 - **BDD:** los criterios se redactan en Gherkin y se codifican con nombres `Dado_…_Cuando_…_Entonces_…` (`ReglasDeNegocioTests`, `FlujosDeUsuarioTests`, `pedidohub.cy.js`).
+- **Nota sobre HU-13 a HU-17:** se construyeron después y sus pruebas de aceptación (`SeguridadTests`, `BitacoraTests`, `ReportesCsvTests`, E2E-12 a E2E-17 y el bloque "Acceso, landing y roles" de Cypress) se escribieron al cerrar cada incremento, no antes del código. El ciclo rojo→verde documentado corresponde a DEF-01 a DEF-05.
 - **ATDD:** el PO define el criterio de aceptación **antes** de la historia; la prueba E2E correspondiente es el criterio ejecutable.
 
 Ejemplo (HU-06):
@@ -131,8 +137,8 @@ Escenario: Reserva en el pasado
 | P3 — media | Soporte y conveniencia | HU-10, 11 | Cada *push* (barato) |
 
 ### 3.5 Automatización con dos herramientas
-- **Selenium WebDriver (C#/xUnit):** proyecto `PedidoHub.E2E`, 11 escenarios (11/11 pasan), Chrome *headless*.
-- **Cypress (JavaScript):** carpeta `cypress/`, 13 escenarios (13/13 pasan), reporte JUnit.
+- **Selenium WebDriver (C#/xUnit):** proyecto `PedidoHub.E2E`, 17 escenarios (17/17 pasan), Chrome *headless*.
+- **Cypress (JavaScript):** carpeta `cypress/`, 19 escenarios (19/19 pasan), reporte JUnit.
 - Se complementan: Selenium aprovecha el ecosistema .NET y comparte datos de prueba; Cypress ofrece ciclo rápido de depuración y verificación HTTP directa.
 
 ### 3.6 Integración continua (CI/CD)
@@ -208,36 +214,36 @@ Estados: Nuevo → Confirmado → En corrección → Verificado → Cerrado. Sev
 ### 7.1 Resultados del sprint (medidos)
 | Métrica | Fórmula | Valor | Meta |
 |---|---|---|---|
-| Pruebas automatizadas totales | xUnit 140 + Selenium 11 + Cypress 13 | **164** | — |
-| Pass rate final | pasadas / totales | **164 / 164 = 100 %** | ≥ 98 % |
+| Pruebas automatizadas totales | xUnit 180 + Selenium 17 + Cypress 19 | **216** | — |
+| Pass rate final | pasadas / totales | **216 / 216 = 100 %** | ≥ 98 % |
 | Fail rate final | falladas / totales | 0 % | ≤ 2 % |
 | Pass rate en fase roja TDD | pasadas / totales | 91 / 96 = 94.8 % (5 fallos esperados) | — |
-| Defectos encontrados | auditoría + TDD | **5** (3 mayores, 2 menores) | — |
-| Defectos corregidos | corregidos / encontrados | **5 / 5 = 100 %** | 100 % |
-| Cobertura de líneas (lógica de la app) | coverlet | **1081 / 1371 = 78.8 %** | ≥ 80 % (DoD) |
+| Defectos encontrados | auditoría + TDD | **6** (1 crítico, 3 mayores, 2 menores) | — |
+| Defectos corregidos | corregidos / encontrados | **6 / 6 = 100 %** | 100 % |
+| Cobertura de líneas (lógica de la app) | coverlet | **1328 / 1633 = 81.3 %** | ≥ 80 % (DoD) |
 | Cobertura de `ReporteService` | coverlet | 100 % | ≥ 80 % |
-| Defect density | defectos / KLOC (1.371 KLOC ejecutables) | **3.6 defectos/KLOC** | < 5 |
-| Tiempo de la suite unit.+integración | — | ≈ 5 s | < 30 s |
-| Throughput (velocidad) | tarjetas terminadas por sprint | **17** (12 historias + 5 defectos) | — |
+| Defect density | defectos / KLOC (1.633 KLOC ejecutables) | **3.7 defectos/KLOC** | < 5 |
+| Tiempo de la suite unit.+integración | — | ≈ 13 s | < 30 s |
+| Throughput (velocidad) | tarjetas terminadas por sprint | **23** (17 historias + 6 defectos) | — |
 
-Detalle de cobertura por archivo: `Docs/evidencias/cobertura.md`. La cobertura global (78.8 %) queda ligeramente por debajo de la meta del DoD (80 %); la brecha está en `TelefonosController` (51.4 %) y se registra como TD-04.
+Estas métricas se publican dentro de la propia aplicación en el **Panel de calidad** (`/Calidad`, solo administrador), que lee `PedidoHub/Data/calidad.json`; ese archivo lo actualiza `scripts/cobertura.ps1` a partir de los resultados reales de las pruebas. Detalle por archivo: `Docs/evidencias/cobertura.md`. Quedan por debajo de la meta `TelefonosController` (51.4 %) y `EmpleadosController` (60.5 %), registrados como TD-04.
 ### 7.2 Definiciones
 | Métrica | Definición |
 |---|---|
 | **Cobertura** | % de líneas/ramas ejecutadas por las pruebas (coverlet) |
-| **Defect density** | defectos / KLOC. Con 5 defectos y el tamaño del código (ver cobertura) se calcula por sprint |
+| **Defect density** | defectos / KLOC. Con 6 defectos y 1.633 KLOC ejecutables resulta 3.7 por KLOC |
 | **Pass/Fail rate** | pruebas pasadas o fallidas / totales |
 | **Velocidad del equipo** | historias terminadas por sprint (Kanban: *throughput* semanal) |
 | **Lead time** | días desde "En desarrollo" hasta "Hecho" |
 
 ### 7.3 Velocidad / throughput
-Sprint actual: **17 tarjetas terminadas (12 historias y 5 defectos corregidos con TDD)**. Se registrará el *throughput* semanal en el tablero para comparar sprints.
+Sprint actual: **23 tarjetas terminadas (17 historias y 6 defectos corregidos)**. Se registrará el *throughput* semanal en el tablero para comparar sprints.
 
 ### 7.4 Mejoras propuestas (indicadores)
 1. Subir cobertura de ramas de controladores con más pruebas de integración (Telefonos, Mesas, Empleados).
 2. Agregar análisis estático (analizadores Roslyn) en el CI.
 3. Agregar paginación y pruebas de rendimiento ligeras.
-4. Incorporar autenticación y roles con sus pruebas de autorización.
+4. Cambiar las claves iniciales de demostración y agregar bloqueo por intentos fallidos de inicio de sesión.
 
 ---
 
@@ -248,7 +254,7 @@ Sprint actual: **17 tarjetas terminadas (12 historias y 5 defectos corregidos co
 | R2 | Diferencias entre SQLite (pruebas) y SQL Server (producción) | Media | Alto | E2E en CI contra SQL Server real; conversor decimal solo en pruebas; documentado |
 | R3 | Pruebas E2E frágiles (tiempos, selectores) | Media | Medio | Esperas explícitas, datos únicos, selectores por `name` |
 | R4 | Datos de ejemplo con fechas fijas (2026) vuelven obsoletas las pruebas de reportes | Media | Medio | Fechas fijas de reporte; usar fechas relativas en reservas |
-| R5 | Sin autenticación: cualquiera puede operar el sistema | Alta | Alto | Registrado como deuda técnica P1 para el próximo sprint |
+| R5 | Cuentas de demostración con clave inicial conocida | Media | Alto | Login con roles ya implementado (HU-13, claves hasheadas); en un despliegue real se cambia `Seed:Clave` y se agrega bloqueo por intentos |
 | R6 | Sin paginación: degradación con muchos registros | Media | Medio | Backlog; prueba de rendimiento |
 | R7 | Dependencia de fuentes externas (Google Fonts) | Baja | Bajo | Aloja fuentes localmente (backlog) |
 | R8 | Cambio de zona horaria/cultura | Baja | Medio | Cultura fija `en-US` ya configurada |

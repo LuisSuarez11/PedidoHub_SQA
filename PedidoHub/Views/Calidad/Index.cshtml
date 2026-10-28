@@ -1,0 +1,95 @@
+@model CalidadViewModel
+@using System.Globalization
+@{
+    ViewData["Title"] = "Panel de calidad";
+    string P(double v) => v.ToString("0.#", CultureInfo.InvariantCulture);
+    string Clase(double pct) => pct >= 80 ? "" : pct >= 60 ? "media" : "baja";
+    var metaOk = Model.CoberturaGlobal >= Model.Datos.MetaCobertura;
+}
+
+<div class="title-row">
+    <div>
+        <h1>Panel de calidad</h1>
+        <p class="title-sub">@Model.Datos.Sprint · datos al @Model.Datos.Actualizado. Resultados del Test Plan ágil junto al estado vivo del sistema.</p>
+    </div>
+</div>
+
+<div class="kpis">
+    <div class="kpi @(Model.TasaExito >= 98 ? "ok" : "alerta")"><small>Tasa de éxito</small><strong>@P(Model.TasaExito)%</strong><div class="meta">@Model.TotalPasadas de @Model.TotalPruebas pruebas · meta ≥ 98%</div></div>
+    <div class="kpi @(metaOk ? "ok" : "alerta")"><small>Cobertura de líneas</small><strong>@P(Model.CoberturaGlobal)%</strong><div class="meta">@Model.LineasCubiertas de @Model.LineasValidas · meta ≥ @Model.Datos.MetaCobertura%</div></div>
+    <div class="kpi ok"><small>Defectos corregidos</small><strong>@Model.DefectosCerrados / @Model.Datos.Defectos.Count</strong><div class="meta">Densidad: @P(Model.DensidadDefectos) por KLOC</div></div>
+    <div class="kpi ok"><small>Historias hechas</small><strong>@Model.Datos.Historias.Count(h => h.Estado == "Hecho") / @Model.Datos.Historias.Count</strong><div class="meta">Throughput del sprint: @(Model.Datos.Historias.Count + Model.Datos.Defectos.Count)</div></div>
+</div>
+
+<div class="panel-q" id="estado-vivo">
+    <h2>Estado vivo del sistema</h2>
+    <div class="estado-vivo">
+        <div><small class="text-muted">Base de datos</small><strong>@(Model.BaseDeDatosDisponible ? "Disponible" : "Sin conexión")</strong></div>
+        @foreach (var registro in Model.Registros)
+        {
+            <div><small class="text-muted">@registro.Key</small><strong>@registro.Value</strong></div>
+        }
+    </div>
+</div>
+
+<div class="grid-2">
+    <div class="panel-q">
+        <h2>Pirámide de pruebas</h2>
+        @foreach (var suite in Model.Datos.Pruebas)
+        {
+            <div class="barra-fila">
+                <span class="etq">@suite.Nombre <small class="text-muted">· @suite.Herramienta</small></span>
+                <span class="barra"><i style="width:@(suite.Total == 0 ? 0 : 100 * suite.Pasadas / suite.Total)%"></i></span>
+                <span class="text-end">@suite.Pasadas / @suite.Total</span>
+            </div>
+        }
+    </div>
+    <div class="panel-q">
+        <h2>Definition of Done</h2>
+        <ul class="dod p-0 m-0">
+            @foreach (var criterio in Model.Datos.Dod)
+            {
+                <li><span class="@(criterio.Cumple ? "ok" : "no")">@(criterio.Cumple ? "✓" : "✗")</span>@criterio.Texto</li>
+            }
+            <li><span class="@(metaOk ? "ok" : "no")">@(metaOk ? "✓" : "✗")</span>Cobertura de líneas ≥ @Model.Datos.MetaCobertura% (actual @P(Model.CoberturaGlobal)%)</li>
+        </ul>
+    </div>
+</div>
+
+<div class="panel-q">
+    <h2>Cobertura por archivo (menor a mayor)</h2>
+    @foreach (var archivo in Model.Datos.Cobertura.OrderBy(c => c.Porcentaje).Take(12))
+    {
+        <div class="barra-fila">
+            <span class="etq" title="@archivo.Archivo">@archivo.Archivo</span>
+            <span class="barra"><i class="@Clase(archivo.Porcentaje)" style="width:@archivo.Porcentaje.ToString("0.#", CultureInfo.InvariantCulture)%"></i></span>
+            <span class="text-end">@P(archivo.Porcentaje)%</span>
+        </div>
+    }
+</div>
+
+<div class="panel-q">
+    <h2>Defectos y acciones correctivas</h2>
+    <table class="table table-sm align-middle mb-0">
+        <thead><tr><th>ID</th><th>Hallazgo</th><th>Severidad</th><th>Estado</th><th>Prueba de regresión</th></tr></thead>
+        <tbody>
+            @foreach (var d in Model.Datos.Defectos)
+            {
+                <tr><td>@d.Id</td><td>@d.Titulo</td><td>@d.Severidad</td><td>@d.Estado</td><td><code>@d.Prueba</code></td></tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="panel-q">
+    <h2>Trazabilidad historia → pruebas</h2>
+    <table class="table table-sm align-middle mb-0">
+        <thead><tr><th>ID</th><th>Historia</th><th>Prioridad</th><th>Pruebas</th><th>Estado</th></tr></thead>
+        <tbody>
+            @foreach (var h in Model.Datos.Historias)
+            {
+                <tr><td>@h.Id</td><td>@h.Titulo</td><td>@h.Prioridad</td><td>@h.Pruebas</td><td>@h.Estado</td></tr>
+            }
+        </tbody>
+    </table>
+</div>
