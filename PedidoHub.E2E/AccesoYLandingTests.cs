@@ -6,7 +6,7 @@ namespace PedidoHub.E2E;
 /// <summary>Landing pública, inicio de sesión y permisos por rol (HU-13, HU-15, HU-16).</summary>
 public class AccesoYLandingTests : PruebaNavegador
 {
-    public AccesoYLandingTests() : base(usuario: null)
+    public AccesoYLandingTests(Xunit.Abstractions.ITestOutputHelper salida) : base(salida, usuario: null)
     {
     }
 

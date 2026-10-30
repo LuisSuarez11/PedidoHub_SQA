@@ -12,6 +12,11 @@ const ingresar = (usuario = 'admin') =>
   });
 
 
+// Evidencia: captura del estado final de cada escenario.
+afterEach(function () {
+  cy.screenshot(this.currentTest.title.replace(/[^\wáéíóúñÁÉÍÓÚÑ ]/g, '').slice(0, 90), { capture: 'viewport', overwrite: true });
+});
+
 describe('Navegación y búsqueda', () => {
   beforeEach(() => ingresar());
   it('Dado el inicio, Cuando carga, Entonces muestra el plano de mesas y la navegación', () => {

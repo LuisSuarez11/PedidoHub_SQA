@@ -1,6 +1,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
+using Xunit.Abstractions;
 
 namespace PedidoHub.E2E.Infra;
 
@@ -20,8 +21,14 @@ public abstract class PruebaNavegador : IDisposable
     protected static readonly string Clave =
         Environment.GetEnvironmentVariable("PEDIDOHUB_CLAVE") ?? "PedidoHub2026!";
 
-    protected PruebaNavegador(string? usuario = "admin")
+    private readonly string _nombrePrueba;
+
+    protected PruebaNavegador(ITestOutputHelper salida, string? usuario = "admin")
     {
+        // Nombre de la prueba en ejecución (para nombrar la captura de pantalla de evidencia).
+        var prueba = salida.GetType().GetField("test", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(salida) as ITest;
+        _nombrePrueba = prueba?.DisplayName.Split('.').Last() ?? Guid.NewGuid().ToString("N");
+
         var opciones = new ChromeOptions();
         if (Environment.GetEnvironmentVariable("E2E_VISIBLE") != "1")
         {
@@ -79,6 +86,20 @@ public abstract class PruebaNavegador : IDisposable
 
     public void Dispose()
     {
+        // Con E2E_CAPTURAS=<carpeta> cada prueba deja una captura de su estado final como evidencia.
+        var carpeta = Environment.GetEnvironmentVariable("E2E_CAPTURAS");
+        if (!string.IsNullOrEmpty(carpeta))
+        {
+            try
+            {
+                Directory.CreateDirectory(carpeta);
+                ((ITakesScreenshot)Navegador).GetScreenshot().SaveAsFile(Path.Combine(carpeta, _nombrePrueba + ".png"));
+            }
+            catch (WebDriverException)
+            {
+            }
+        }
+
         Navegador.Quit();
         Navegador.Dispose();
         GC.SuppressFinalize(this);

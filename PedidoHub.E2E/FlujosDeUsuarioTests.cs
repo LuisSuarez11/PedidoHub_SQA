@@ -10,6 +10,10 @@ namespace PedidoHub.E2E;
 /// </summary>
 public class FlujosDeUsuarioTests : PruebaNavegador
 {
+    public FlujosDeUsuarioTests(Xunit.Abstractions.ITestOutputHelper salida) : base(salida)
+    {
+    }
+
     [Fact]
     public void E2E_01_Dado_el_inicio_Cuando_se_abre_Entonces_muestra_el_plano_con_las_mesas()
     {

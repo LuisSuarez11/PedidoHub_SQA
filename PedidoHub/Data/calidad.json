@@ -1,5 +1,5 @@
 {
-    "actualizado":  "2026-10-28",
+    "actualizado":  "2026-10-30",
     "sprint":  "Sprint 1 · Kanban con cadencia semanal",
     "metaCobertura":  80,
     "pruebas":  [
@@ -36,7 +36,7 @@
                       },
                       {
                           "archivo":  "ViewModels/CalidadViewModel.cs",
-                          "cubiertas":  35,
+                          "cubiertas":  39,
                           "validas":  39
                       },
                       {

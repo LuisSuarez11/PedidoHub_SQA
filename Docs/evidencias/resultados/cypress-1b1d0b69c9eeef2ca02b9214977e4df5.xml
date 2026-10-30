@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="14.513" tests="19" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-10-30T05:46:36" tests="0" file="e2e\pedidohub.cy.js" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Navegación y búsqueda" timestamp="2026-10-30T05:46:36" tests="4" time="4.325" failures="0">
+    <testcase name="Navegación y búsqueda Dado el inicio, Cuando carga, Entonces muestra el plano de mesas y la navegación" time="2.206" classname="Dado el inicio, Cuando carga, Entonces muestra el plano de mesas y la navegación">
+    </testcase>
+    <testcase name="Navegación y búsqueda Dada la paleta (Ctrl+K), Cuando se busca &quot;Silpancho&quot;, Entonces lo encuentra" time="0.509" classname="Dada la paleta (Ctrl+K), Cuando se busca &quot;Silpancho&quot;, Entonces lo encuentra">
+    </testcase>
+    <testcase name="Navegación y búsqueda Dado el menú, Cuando se visita cada pantalla del catálogo, Entonces responde sin error" time="0.291" classname="Dado el menú, Cuando se visita cada pantalla del catálogo, Entonces responde sin error">
+    </testcase>
+    <testcase name="Navegación y búsqueda Dado el endpoint de salud, Cuando se consulta, Entonces responde Healthy" time="0.057" classname="Dado el endpoint de salud, Cuando se consulta, Entonces responde Healthy">
+    </testcase>
+  </testsuite>
+  <testsuite name="Clientes y platos" timestamp="2026-10-30T05:46:41" tests="3" time="2.737" failures="0">
+    <testcase name="Clientes y platos Dado un cliente válido, Cuando se registra, Entonces aparece en el listado" time="0.961" classname="Dado un cliente válido, Cuando se registra, Entonces aparece en el listado">
+    </testcase>
+    <testcase name="Clientes y platos Dado un cliente sin teléfono, Cuando se intenta guardar, Entonces se muestra la validación" time="0.534" classname="Dado un cliente sin teléfono, Cuando se intenta guardar, Entonces se muestra la validación">
+    </testcase>
+    <testcase name="Clientes y platos Dado un plato con nombre repetido, Cuando se crea, Entonces se rechaza" time="0.611" classname="Dado un plato con nombre repetido, Cuando se crea, Entonces se rechaza">
+    </testcase>
+  </testsuite>
+  <testsuite name="Reservas" timestamp="2026-10-30T05:46:44" tests="2" time="1.929" failures="0">
+    <testcase name="Reservas Dada una mesa de 4, Cuando se reservan 5 personas, Entonces se rechaza por capacidad" time="0.728" classname="Dada una mesa de 4, Cuando se reservan 5 personas, Entonces se rechaza por capacidad">
+    </testcase>
+    <testcase name="Reservas Dada una fecha pasada, Cuando se crea la reserva, Entonces se rechaza" time="0.717" classname="Dada una fecha pasada, Cuando se crea la reserva, Entonces se rechaza">
+    </testcase>
+  </testsuite>
+  <testsuite name="Reportes" timestamp="2026-10-30T05:46:45" tests="2" time="0.751" failures="0">
+    <testcase name="Reportes Dado el reporte de ventas, Cuando las fechas están invertidas, Entonces informa el error" time="0.104" classname="Dado el reporte de ventas, Cuando las fechas están invertidas, Entonces informa el error">
+    </testcase>
+    <testcase name="Reportes Dado el reporte de platos más vendidos, Cuando se abre, Entonces lista Refresco" time="0.134" classname="Dado el reporte de platos más vendidos, Cuando se abre, Entonces lista Refresco">
+    </testcase>
+  </testsuite>
+  <testsuite name="Seguridad básica" timestamp="2026-10-30T05:46:46" tests="2" time="0.546" failures="0">
+    <testcase name="Seguridad básica Dado un POST sin token antiforgery, Cuando se envía, Entonces es rechazado" time="0.052" classname="Dado un POST sin token antiforgery, Cuando se envía, Entonces es rechazado">
+    </testcase>
+    <testcase name="Seguridad básica Dadas las respuestas HTML, Cuando se piden, Entonces incluyen cabeceras de seguridad" time="0.069" classname="Dadas las respuestas HTML, Cuando se piden, Entonces incluyen cabeceras de seguridad">
+    </testcase>
+  </testsuite>
+  <testsuite name="Acceso, landing y roles" timestamp="2026-10-30T05:46:47" tests="6" time="4.215" failures="0">
+    <testcase name="Acceso, landing y roles Dado un visitante, Cuando abre la raíz, Entonces ve la landing con indicadores de calidad" time="0.097" classname="Dado un visitante, Cuando abre la raíz, Entonces ve la landing con indicadores de calidad">
+    </testcase>
+    <testcase name="Acceso, landing y roles Dado un visitante, Cuando abre una pantalla interna, Entonces es enviado al login" time="0.073" classname="Dado un visitante, Cuando abre una pantalla interna, Entonces es enviado al login">
+    </testcase>
+    <testcase name="Acceso, landing y roles Dada una clave incorrecta, Cuando se ingresa, Entonces se muestra el error" time="0.651" classname="Dada una clave incorrecta, Cuando se ingresa, Entonces se muestra el error">
+    </testcase>
+    <testcase name="Acceso, landing y roles Dado el administrador, Cuando abre el panel de calidad, Entonces ve las métricas" time="0.139" classname="Dado el administrador, Cuando abre el panel de calidad, Entonces ve las métricas">
+    </testcase>
+    <testcase name="Acceso, landing y roles Dado un mesero, Cuando abre Empleados, Entonces ve acceso denegado" time="0.860" classname="Dado un mesero, Cuando abre Empleados, Entonces ve acceso denegado">
+    </testcase>
+    <testcase name="Acceso, landing y roles Dado el cajero, Cuando abre ventas, Entonces puede exportar el CSV" time="0.981" classname="Dado el cajero, Cuando abre ventas, Entonces puede exportar el CSV">
+    </testcase>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,3 @@
+﻿Correctas! - Con error:     0, Superado:   180, Omitido:     0, Total:   180, Duración: 14 s - PedidoHub.Tests.dll (net8.0)
+Cobertura: 1332/1633 = 81.6%  |  Suites: xUnit 46/46; xUnit + WebApplicationFactory 134/134; Selenium WebDriver 17/17; Cypress 19/19
+

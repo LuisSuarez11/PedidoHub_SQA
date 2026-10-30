@@ -1,13 +1,13 @@
 # Cobertura de código (coverlet)
 
-Generado el 2026-10-28 15:23. Alcance: Controllers, Services, Models, ViewModels y DbContext (se excluyen migraciones y vistas Razor generadas).
+Generado el 2026-10-30 01:47. Alcance: Controllers, Services, Models, ViewModels y DbContext (se excluyen migraciones y vistas Razor generadas).
 
-**Cobertura de líneas: 1328 / 1633 = 81.3 %**
+**Cobertura de líneas: 1332 / 1633 = 81.6 %**
 
 | Archivo | Líneas cubiertas | Líneas válidas | % |
 |---|---|---|---|
 | ViewModels/AgregarPlatoViewModel.cs | 4 | 4 | 100 % |
-| ViewModels/CalidadViewModel.cs | 35 | 39 | 89.7 % |
+| ViewModels/CalidadViewModel.cs | 39 | 39 | 100 % |
 | ViewModels/ClienteFormViewModel.cs | 2 | 2 | 100 % |
 | ViewModels/ConfirmarEliminarViewModel.cs | 4 | 4 | 100 % |
 | ViewModels/CuentaViewModels.cs | 3 | 3 | 100 % |
